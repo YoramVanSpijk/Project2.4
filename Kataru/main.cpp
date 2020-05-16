@@ -1,15 +1,18 @@
+#include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include "tigl.h"
 #include "FpsCam.h"
-#include <iostream>
-#include <glm/gtc/matrix_transform.hpp>
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "opencv_world341.lib")
+#pragma comment(lib, "opencv_world341d.lib")
 
 GLFWwindow* window;
 
@@ -30,7 +33,6 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     tigl::init();
-
     init();
 
 	while (!glfwWindowShouldClose(window))

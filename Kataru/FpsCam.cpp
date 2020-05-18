@@ -4,9 +4,9 @@
 
 FpsCam::FpsCam(GLFWwindow* window)
 {
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	if (glfwRawMouseMotionSupported())
-		glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//if (glfwRawMouseMotionSupported())
+	//	glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 }
 
 
@@ -25,28 +25,36 @@ void FpsCam::move(float angle, float fac)
 	position.z += (float)sin(rotation.y + glm::radians(angle)) * fac;
 }
 
+void FpsCam::moveVertical(float y)
+{
+	position.y += y;
+}
 
 void FpsCam::update(GLFWwindow* window)
 {
 	double x, y;
 	glfwGetCursorPos(window, &x, &y);
 
-	static double lastX = x;
-	static double lastY = y;
+	//static double lastX = x;
+	//static double lastY = y;
 
-	rotation.x -= (float)(lastY - y) / 100.0f;
-	rotation.y -= (float)(lastX - x) / 100.0f;
+	//rotation.x -= (float)(lastY - y) / 100.0f;
+	//rotation.y -= (float)(lastX - x) / 100.0f;
 
-	lastX = x;
-	lastY = y;
+	//lastX = x;
+	//lastY = y;
 
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		move(0, 0.2f);
+		move(0, 0.05f);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		move(180, 0.2f);
+		move(180, 0.05f);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		move(90, 0.2f);
+		move(90, 0.05f);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		move(-90, 0.2f);
+		move(-90, 0.05f);
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) // move up
+		moveVertical(-0.1f);
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) // move down
+		moveVertical(0.1f);
 }

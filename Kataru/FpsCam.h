@@ -16,6 +16,7 @@ private:
 	glm::vec2 rotation = glm::vec2(0, 0);
 
 	void move(float angle, float fac);
+	void moveVertical(float y);
 };
 
 

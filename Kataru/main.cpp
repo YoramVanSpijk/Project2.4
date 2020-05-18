@@ -41,6 +41,8 @@ int main(void)
     }
 
     processVideo(cap);
+
+    return 0;
 }
 
 void processVideo(cv::VideoCapture& capture)
@@ -50,7 +52,7 @@ void processVideo(cv::VideoCapture& capture)
 
     if (currentFrame.empty())
     {
-        std::cout << "Cannot open video capture device" << std::endl;
+        std::cout << "Cannot read the video stream" << std::endl;
         return;
     }
 

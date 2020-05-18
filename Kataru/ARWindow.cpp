@@ -11,6 +11,7 @@ void onDraw(void* param)
 	if (ctx)
 	{
 		ctx->draw();
+
 	}
 
 	delete ctx;

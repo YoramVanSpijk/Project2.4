@@ -7,6 +7,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include "tigl.h"
 #include "FpsCam.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -14,7 +16,11 @@
 #pragma comment(lib, "opencv_world341.lib")
 #pragma comment(lib, "opencv_world341d.lib")
 
+using namespace cv;
+
 GLFWwindow* window;
+GLuint buttonTexId = -2;
+GLuint camTexId = -3;
 
 void init();
 void update();
@@ -45,11 +51,11 @@ int main(void)
 
 	glfwTerminate();
 
-
     return 0;
 }
 
 FpsCam* camera;
+VideoCapture cap;
 
 void init()
 {
@@ -60,6 +66,33 @@ void init()
             glfwSetWindowShouldClose(window, true);
     });
     camera = new FpsCam(window);
+
+
+    // Camera
+    VideoCapture c(0);
+    cap = c;
+    if (!cap.isOpened())
+    {
+        std::cout << "Cannot open the video cam" << std::endl;
+    }
+
+    glGenTextures(1, &camTexId);
+    glBindTexture(GL_TEXTURE_2D, camTexId);
+
+    //Buttons
+    glGenTextures(1, &buttonTexId);
+    glBindTexture(GL_TEXTURE_2D, buttonTexId);
+
+    int width, height, comp;
+    unsigned char* data = stbi_load("button_texture_atlas.png", &width, &height, &comp, 4);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+    // Wordt op de heap gezet
+    stbi_image_free(data);
 }
 
 
@@ -84,4 +117,41 @@ void draw()
     tigl::shader->enableColor(false);
     tigl::shader->enableTexture(true);
 
+    Mat frame;
+    if (cap.read(frame)) {
+        flip(frame, frame, 3);
+
+        cvtColor(frame, frame, CV_BGR2RGB);
+        glBindTexture(GL_TEXTURE_2D, camTexId);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, frame.cols, frame.rows, 0, GL_RGB, GL_UNSIGNED_BYTE, frame.data);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    }
+
+    tigl::begin(GL_QUADS);
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec2(0, 0)));
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(2.0f, 0.0f, 0.0f), glm::vec2(1, 0)));
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(2.0f, 1.0f, 0.0f), glm::vec2(1, -1)));
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0, -1)));
+    tigl::end();
+
+    glBindTexture(GL_TEXTURE_2D, buttonTexId);
+
+    glm::mat4 cubeModel = glm::mat4(1.0f);
+    cubeModel = glm::translate(cubeModel, glm::vec3(-2.5, 0, 0));
+    tigl::shader->setModelMatrix(cubeModel);
+
+    float textSizeX = 1 * 600.0f;
+
+    glm::vec2 texPosition(0, 0);
+    int index = 1;
+    texPosition.x = index * textSizeX;
+
+    tigl::begin(GL_QUADS);
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(0.0f, 0.0f, 0.0f), texPosition + glm::vec2(0, 0)));
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(2.0f, 0.0f, 0.0f), texPosition + glm::vec2(1, 0)));
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(2.0f, 1.0f, 0.0f), texPosition + glm::vec2(1, -1)));
+    tigl::addVertex(tigl::Vertex::PT(glm::vec3(0.0f, 1.0f, 0.0f), texPosition + glm::vec2(0, -1)));
+    tigl::end();
 }

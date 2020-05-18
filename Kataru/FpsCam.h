@@ -16,7 +16,7 @@ struct GLFWwindow;
 class FpsCam : public DrawComponent
 {
 public:
-	FpsCam(GLFWwindow*);
+	FpsCam(GLFWwindow* window);
 
 	glm::mat4 getMatrix();
 

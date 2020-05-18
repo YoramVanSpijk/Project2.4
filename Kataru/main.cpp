@@ -87,7 +87,7 @@ void init()
     });
     
     lastFrameTime = 0;
-    attachCameraObject(window);
+    attachCameraObject(window, nullptr, new FpsCam(window));
 }
 
 

@@ -39,6 +39,9 @@
     <ClCompile Include="FpsCam.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="GuiComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -57,6 +60,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="FpsCam.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

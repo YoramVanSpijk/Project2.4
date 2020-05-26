@@ -10,6 +10,7 @@
 #include "FpsCam.h"
 #include "GameObject.h"
 #include "CameraObject.h"
+#include "ObjModel.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -88,6 +89,7 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
+    attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"));
 }
 
 

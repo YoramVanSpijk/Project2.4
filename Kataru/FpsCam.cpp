@@ -45,16 +45,16 @@ void FpsCam::update(GLFWwindow* window)
 	//lastY = y;
 
 
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		move(0, 0.05f);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		move(180, 0.05f);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		move(90, 0.05f);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		move(-90, 0.05f);
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) // move up
-		moveVertical(-0.1f);
-	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) // move down
-		moveVertical(0.1f);
+	//if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	//	move(0, 0.05f);
+	//if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	//	move(180, 0.05f);
+	//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	//	move(90, 0.05f);
+	//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	//	move(-90, 0.05f);
+	//if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) // move up
+	//	moveVertical(-0.1f);
+	//if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) // move down
+	//	moveVertical(0.1f);
 }

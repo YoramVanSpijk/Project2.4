@@ -60,10 +60,10 @@
     <ClCompile Include="lib\imgui\include\imgui_widgets.cpp">
       <Filter>imGui</Filter>
     </ClCompile>
-    <ClCompile Include="GuiObject.cpp">
+    <ClCompile Include="MenuGuiComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="MenuGuiComponent.cpp">
+    <ClCompile Include="GuiObject.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="GuiComponent.cpp">
@@ -113,13 +113,13 @@
     <ClInclude Include="lib\imgui\include\imstb_truetype.h">
       <Filter>imGui</Filter>
     </ClInclude>
-    <ClInclude Include="GuiObject.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="MenuGuiComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GuiComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiObject.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

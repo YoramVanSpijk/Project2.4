@@ -8,8 +8,6 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "GuiComponent.h"
-
 class GuiComponent;
 
 class GuiObject

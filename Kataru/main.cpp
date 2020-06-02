@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "CameraObject.h"
 #include "GuiObject.h"
+#include "MenuGuiComponent.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -95,7 +96,8 @@ void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr
 void initImGui()
 {
     IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
+    ImGuiContext* ctx = ImGui::CreateContext();
+    ImGui::SetCurrentContext(ctx);
 
     ImGui::StyleColorsDark();
 
@@ -114,7 +116,7 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
-    attachGuiObject(window, nullptr, new GuiComponent());
+    attachGuiObject(window, nullptr, new MenuGuiComponent());
 }
 
 

@@ -1,11 +1,13 @@
 #include "GuiObject.h"
 
-GuiObject::GuiObject(GLFWwindow* window) 
+#include "GuiComponent.h"
+
+GuiObject::GuiObject(GLFWwindow* window)
 {
 	this->window = window;
 }
 
-GuiObject::~GuiObject() 
+GuiObject::~GuiObject()
 {
 }
 
@@ -51,9 +53,12 @@ void GuiObject::draw()
 		glClear(GL_COLOR_BUFFER_BIT);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-		glfwSwapBuffers(window);
+		//glfwSwapBuffers(window);
 	}
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
+	else
+	{
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+	}
 }

@@ -16,6 +16,9 @@
     <Filter Include="Components">
       <UniqueIdentifier>{09a5d7f0-608f-4999-86af-903c0e5936e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imGui">
+      <UniqueIdentifier>{3133b909-8dcb-446a-9669-a33d7bbf711d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="tigl.cpp">
@@ -39,6 +42,30 @@
     <ClCompile Include="FpsCam.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="lib\imgui\include\imgui.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\include\imgui_demo.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\include\imgui_draw.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\include\imgui_impl_glfw.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\include\imgui_impl_opengl3.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\include\imgui_widgets.cpp">
+      <Filter>imGui</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiObject.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuGuiComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="GuiComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -60,6 +87,36 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="FpsCam.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imconfig.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imgui.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imgui_impl_glfw.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imgui_impl_opengl3.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imgui_internal.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imstb_rectpack.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imstb_textedit.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\imgui\include\imstb_truetype.h">
+      <Filter>imGui</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiObject.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuGuiComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GuiComponent.h">

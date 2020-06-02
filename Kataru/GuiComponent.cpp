@@ -2,10 +2,8 @@
 
 GuiComponent::GuiComponent()
 {
-
 }
 
-void GuiComponent::draw()
+GuiComponent::~GuiComponent()
 {
-
 }

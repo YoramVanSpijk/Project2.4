@@ -162,7 +162,15 @@
     <ClCompile Include="FpsCam.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
+    <ClCompile Include="GuiObject.cpp" />
+    <ClCompile Include="lib\imgui\include\imgui.cpp" />
+    <ClCompile Include="lib\imgui\include\imgui_demo.cpp" />
+    <ClCompile Include="lib\imgui\include\imgui_draw.cpp" />
+    <ClCompile Include="lib\imgui\include\imgui_impl_glfw.cpp" />
+    <ClCompile Include="lib\imgui\include\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="lib\imgui\include\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuGuiComponent.cpp" />
     <ClCompile Include="tigl.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +180,16 @@
     <ClInclude Include="FpsCam.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GuiComponent.h" />
+    <ClInclude Include="GuiObject.h" />
+    <ClInclude Include="lib\imgui\include\imconfig.h" />
+    <ClInclude Include="lib\imgui\include\imgui.h" />
+    <ClInclude Include="lib\imgui\include\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\imgui\include\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\imgui\include\imgui_internal.h" />
+    <ClInclude Include="lib\imgui\include\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui\include\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui\include\imstb_truetype.h" />
+    <ClInclude Include="MenuGuiComponent.h" />
     <ClInclude Include="tigl.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

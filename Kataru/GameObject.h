@@ -24,5 +24,5 @@ public:
 	std::vector<Component*> getComponents();
 
 	void update(float deltaTime);
-	void draw(const glm::mat4& = glm::mat4(1.0f));
+	void draw();
 };

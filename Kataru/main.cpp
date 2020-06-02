@@ -10,6 +10,7 @@
 #include "FpsCam.h"
 #include "GameObject.h"
 #include "CameraObject.h"
+#include "GuiObject.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -21,7 +22,11 @@ GLFWwindow* window;
 double lastFrameTime;
 
 std::vector<CameraObject*> cameraObjects;
+std::vector<GuiObject*> guiObjects;
 std::vector<GameObject*> gameObjects;
+
+const char* glsl_version = "#version 130";
+void initImGui();
 
 void init();
 void update();
@@ -42,6 +47,7 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     tigl::init();
+    initImGui();
     init();
 
 	while (!glfwWindowShouldClose(window))
@@ -66,6 +72,15 @@ void attachGameObject(GameObject* gameObject = nullptr, Component* component = n
 
     gameObjects.push_back(obj);
 }
+void attachGuiObject(GLFWwindow* window, GuiObject* guiObject = nullptr, GuiComponent* guiComponent = nullptr)
+{
+    GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
+
+    if (guiComponent != nullptr)
+        obj->addGuiComponent(guiComponent);
+
+    guiObjects.push_back(obj);
+}
 
 void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr, FpsCam* camera = nullptr)
 {
@@ -75,6 +90,17 @@ void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr
         obj->addCamera(camera);
 
     cameraObjects.push_back(obj);
+}
+
+void initImGui()
+{
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
 void init()
@@ -88,6 +114,7 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
+    attachGuiObject(window, nullptr, new GuiComponent());
 }
 
 
@@ -100,6 +127,9 @@ void update()
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->update(window);
 
+    for (size_t i = 0; i < guiObjects.size(); i++)
+        guiObjects[i]->update(deltaTime);
+
     for (size_t i = 0; i < gameObjects.size(); i++)
         gameObjects[i]->update(deltaTime);
 }
@@ -111,6 +141,9 @@ void draw()
 
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->draw();
+
+    for (size_t i = 0; i < guiObjects.size(); i++)
+        guiObjects[i]->draw();
 
     for (size_t i = 0; i < gameObjects.size(); i++)
         gameObjects[i]->draw();

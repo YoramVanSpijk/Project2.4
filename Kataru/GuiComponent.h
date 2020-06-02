@@ -1,14 +1,22 @@
 #pragma once
-#include "DrawComponent.h"
 
-#include "imgui.h"
-#include "imgui_internal.h"
-#include "imgui_impl_opengl3.h"
+#include <stdio.h>
+#include "GuiObject.h"
 
-class GuiComponent : public DrawComponent
+class GuiComponent
 {
-	GuiComponent();
-public:
-	void draw();
-};
+protected:
+	GuiObject* parentObject;
 
+public:
+	GuiComponent();
+	~GuiComponent();
+
+	virtual void draw(GLFWwindow* window) {};
+	virtual void update(float deltaTime) {};
+
+	inline void setGameObject(GuiObject* parentObject)
+	{
+		this->parentObject = parentObject;
+	}
+};

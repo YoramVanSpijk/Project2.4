@@ -161,6 +161,7 @@
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="FpsCam.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameStateHandler.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
     <ClCompile Include="GuiObject.cpp" />
     <ClCompile Include="lib\imgui\include\imgui.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="FpsCam.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameStateHandler.h" />
     <ClInclude Include="GuiComponent.h" />
     <ClInclude Include="GuiObject.h" />
     <ClInclude Include="lib\imgui\include\imconfig.h" />

@@ -12,6 +12,7 @@
 #include "CameraObject.h"
 #include "GuiObject.h"
 #include "MenuGuiComponent.h"
+#include "GameStateHandler.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -22,12 +23,17 @@
 GLFWwindow* window;
 double lastFrameTime;
 
+GameStateHandler* gameStateHandler;
+GameStateHandler::GameState currentGameState;
+
 std::vector<CameraObject*> cameraObjects;
 std::vector<GuiObject*> guiObjects;
 std::vector<GameObject*> gameObjects;
 
 const char* glsl_version = "#version 130";
 void initImGui();
+
+void SetMouseCursorVisibility(int value);
 
 void init();
 void update();
@@ -39,6 +45,7 @@ int main(void)
         throw "Could not initialize glwf";
 
     window = glfwCreateWindow(1400, 800, "Kataru", NULL, NULL);
+    gameStateHandler = new GameStateHandler();
 
     if (!window)
     {
@@ -50,6 +57,8 @@ int main(void)
     tigl::init();
     initImGui();
     init();
+
+    gameStateHandler->SetGamestate(GameStateHandler::GameState::Menu);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -108,32 +117,54 @@ void initImGui()
 void init()
 {
     glEnable(GL_DEPTH_TEST);
+
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         if (key == GLFW_KEY_ESCAPE)
             glfwSetWindowShouldClose(window, true);
     });
+
+    SetMouseCursorVisibility(GLFW_CROSSHAIR_CURSOR);
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
-    attachGuiObject(window, nullptr, new MenuGuiComponent());
+    attachGuiObject(window, nullptr, new MenuGuiComponent(gameStateHandler));
 }
 
+void SetMouseCursorVisibility(int value)
+{
+    glfwSetInputMode(window, GLFW_CURSOR, value);
+    if (glfwRawMouseMotionSupported())
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+}
 
 void update()
 {
     double currentFrameTime = glfwGetTime();
     double deltaTime = currentFrameTime - lastFrameTime;
     lastFrameTime = currentFrameTime;
+
+    gameStateHandler->GetGamestate(&currentGameState);
     
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->update(window);
 
-    for (size_t i = 0; i < guiObjects.size(); i++)
-        guiObjects[i]->update(deltaTime);
+    switch (currentGameState)
+    {
+        case GameStateHandler::GameState::Menu:
+            for (size_t i = 0; i < guiObjects.size(); i++)
+                guiObjects[i]->update(deltaTime);
 
-    for (size_t i = 0; i < gameObjects.size(); i++)
-        gameObjects[i]->update(deltaTime);
+            break;
+        case GameStateHandler::GameState::Game:
+            for (size_t i = 0; i < gameObjects.size(); i++)
+                gameObjects[i]->update(deltaTime);
+
+            break;
+        case GameStateHandler::GameState::Quit:
+            glfwSetWindowShouldClose(window, true);
+            break;
+    }
 }
 
 void draw()
@@ -144,9 +175,17 @@ void draw()
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->draw();
 
-    for (size_t i = 0; i < guiObjects.size(); i++)
-        guiObjects[i]->draw();
+    switch (currentGameState)
+    {
+        case GameStateHandler::GameState::Menu:
+            for (size_t i = 0; i < guiObjects.size(); i++)
+                guiObjects[i]->draw();
 
-    for (size_t i = 0; i < gameObjects.size(); i++)
-        gameObjects[i]->draw();
+            break;
+        case GameStateHandler::GameState::Game:
+            for (size_t i = 0; i < gameObjects.size(); i++)
+                gameObjects[i]->draw();
+
+            break;
+    }
 }

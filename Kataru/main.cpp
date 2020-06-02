@@ -14,7 +14,6 @@
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
-#pragma comment(lib, "opencv_world341.lib")
 #pragma comment(lib, "opencv_world341d.lib")
 
 GLFWwindow* window;
@@ -28,7 +27,7 @@ void update();
 void draw();
 
 int main(void)
-{
+{	
     if (!glfwInit())
         throw "Could not initialize glwf";
 
@@ -90,7 +89,6 @@ void init()
     attachCameraObject(window, nullptr, new FpsCam(window));
 }
 
-
 void update()
 {
     double currentFrameTime = glfwGetTime();
@@ -106,7 +104,17 @@ void update()
 
 void draw()
 {
-    glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
+    glViewport(0, 0, width, height);
+
+    glm::mat4 worldModel = glm::mat4(1.0f);
+    worldModel = glm::scale(worldModel, glm::vec3(1.0f, 1.0f, 1.0f));
+
+    glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
+    tigl::shader->setProjectionMatrix(projection);
+
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     for (size_t i = 0; i < cameraObjects.size(); i++)

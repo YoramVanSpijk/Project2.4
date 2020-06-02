@@ -31,9 +31,9 @@ Mat frame, hsvImage, erosionDst, dilationDst, element,
 croppedImageL, croppedImageR, lHSV, rHSV, mask;
 bool skinToneDetected = false;
 int hLowThreshold, hHighThreshold, sLowThreshold, sHighThreshold, vLowThreshold, vHighThreshold, minAreaBlob, maxAreaBlob, offsetHighThreshold, offsetLowThreshold;
-
+SimpleBlobDetector::Params params;
 int main(void)
-{
+{	
     if (!glfwInit())
         throw "Could not initialize glwf";
     window = glfwCreateWindow(1280, 720, "Hand detection", NULL, NULL);
@@ -62,7 +62,6 @@ int main(void)
 
 FpsCam* camera;
 VideoCapture cap;
-SimpleBlobDetector::Params params;
 
 void init()
 {
@@ -90,12 +89,6 @@ void init()
     offsetLowThreshold = offsetHighThreshold = 40;
     minAreaBlob = 1000;
     maxAreaBlob = 50000;
-
-	params.minThreshold = 10;
-	params.maxThreshold = 200;
-	params.filterByArea = true;
-	params.minArea = minAreaBlob;
-	params.maxArea = maxAreaBlob;
 }
 
 void update()
@@ -155,9 +148,16 @@ void draw()
 
 			imshow(MASK_TAG, mask * 255);
 
-			//vector<KeyPoint> keypoints;
-			//Ptr<SimpleBlobDetector> detector = SimpleBlobDetector::create(params);
-			//detector->detect(mask, keypoints);
+			SimpleBlobDetector::Params params;
+			params.minThreshold = 10;
+			params.maxThreshold = 200;
+			params.filterByArea = true;
+			params.minArea = minAreaBlob;
+			params.maxArea = maxAreaBlob;
+
+			vector<KeyPoint> keypoints;
+			Ptr<SimpleBlobDetector> detector = SimpleBlobDetector::create(params);
+			detector->detect(mask, keypoints); //hiero
 			//drawKeypoints(frame, keypoints, frame, Scalar(255, 0, 0), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
 			//for (int i = 0; i < keypoints.size(); i++) {

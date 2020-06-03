@@ -10,6 +10,10 @@
 #include "FpsCam.h"
 #include "CameraObject.h"
 #include "GameObject.h"
+#include "CameraObject.h"
+#include "GuiObject.h"
+#include "MenuGuiComponent.h"
+#include "GameStateHandler.h"
 #include "VisionCamera.h"
 
 #pragma comment(lib, "glfw3.lib")
@@ -20,8 +24,17 @@
 GLFWwindow* window;
 double lastFrameTime;
 
+GameStateHandler* gameStateHandler;
+GameStateHandler::GameState currentGameState;
+
 std::vector<CameraObject*> cameraObjects;
+std::vector<GuiObject*> guiObjects;
 std::vector<GameObject*> gameObjects;
+
+const char* glsl_version = "#version 130";
+void initImGui();
+
+void SetMouseCursorVisibility(int value);
 
 void init();
 void update();
@@ -32,7 +45,8 @@ int main(void)
     if (!glfwInit())
         throw "Could not initialize glwf";
 
-    window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(1400, 800, "Kataru", NULL, NULL);
+    gameStateHandler = new GameStateHandler();
 
     if (!window)
     {
@@ -42,7 +56,10 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     tigl::init();
+    initImGui();
     init();
+
+    gameStateHandler->SetGamestate(GameStateHandler::GameState::Menu);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -66,6 +83,15 @@ void attachGameObject(GameObject* gameObject = nullptr, Component* component = n
 
     gameObjects.push_back(obj);
 }
+void attachGuiObject(GLFWwindow* window, GuiObject* guiObject = nullptr, GuiComponent* guiComponent = nullptr)
+{
+    GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
+
+    if (guiComponent != nullptr)
+        obj->addGuiComponent(guiComponent);
+
+    guiObjects.push_back(obj);
+}
 
 void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr, FpsCam* camera = nullptr)
 {
@@ -77,18 +103,41 @@ void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr
     cameraObjects.push_back(obj);
 }
 
+void initImGui()
+{
+    IMGUI_CHECKVERSION();
+    ImGuiContext* ctx = ImGui::CreateContext();
+    ImGui::SetCurrentContext(ctx);
+
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+}
+
 void init()
 {
     glEnable(GL_DEPTH_TEST);
+
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         if (key == GLFW_KEY_ESCAPE)
             glfwSetWindowShouldClose(window, true);
     });
+
+    SetMouseCursorVisibility(GLFW_CROSSHAIR_CURSOR);
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
+    attachGuiObject(window, nullptr, new MenuGuiComponent(gameStateHandler));
     attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f,0.0f,0.f));
+}
+
+void SetMouseCursorVisibility(int value)
+{
+    glfwSetInputMode(window, GLFW_CURSOR, value);
+    if (glfwRawMouseMotionSupported())
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 }
 
 void update()
@@ -96,12 +145,28 @@ void update()
     double currentFrameTime = glfwGetTime();
     double deltaTime = currentFrameTime - lastFrameTime;
     lastFrameTime = currentFrameTime;
+
+    gameStateHandler->GetGamestate(&currentGameState);
     
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->update(window);
 
-    for (size_t i = 0; i < gameObjects.size(); i++)
-        gameObjects[i]->update(deltaTime);
+    switch (currentGameState)
+    {
+        case GameStateHandler::GameState::Menu:
+            for (size_t i = 0; i < guiObjects.size(); i++)
+                guiObjects[i]->update(deltaTime);
+
+            break;
+        case GameStateHandler::GameState::Game:
+            for (size_t i = 0; i < gameObjects.size(); i++)
+                gameObjects[i]->update(deltaTime);
+
+            break;
+        case GameStateHandler::GameState::Quit:
+            glfwSetWindowShouldClose(window, true);
+            break;
+    }
 }
 
 void draw()
@@ -119,6 +184,17 @@ void draw()
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->draw();
 
-    for (size_t i = 0; i < gameObjects.size(); i++)
-        gameObjects[i]->draw();
+    switch (currentGameState)
+    {
+        case GameStateHandler::GameState::Menu:
+            for (size_t i = 0; i < guiObjects.size(); i++)
+                guiObjects[i]->draw();
+
+            break;
+        case GameStateHandler::GameState::Game:
+            for (size_t i = 0; i < gameObjects.size(); i++)
+                gameObjects[i]->draw();
+
+            break;
+    }
 }

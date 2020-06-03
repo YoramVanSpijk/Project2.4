@@ -32,5 +32,5 @@
 *.app
 
 Kataru/x64/
-Kataru/lib/
+Kataru/lib
 Kataru/.vs/

@@ -38,12 +38,12 @@ void GameObject::update(float deltaTime)
 		components[i]->update(deltaTime);
 }
 
-void GameObject::draw(const glm::mat4 &parentMatrix)
+void GameObject::draw()
 {
 	if (!drawComponent)
 		return;
 
-	glm::mat4 modelMatrix = parentMatrix;
+	glm::mat4 modelMatrix = glm::mat4();
 	modelMatrix = glm::translate(modelMatrix, position);
 	modelMatrix = glm::rotate(modelMatrix, position.x, glm::vec3(1, 0, 0));
 	modelMatrix = glm::rotate(modelMatrix, position.y, glm::vec3(0, 1, 0));

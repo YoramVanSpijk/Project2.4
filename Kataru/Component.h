@@ -12,8 +12,8 @@ public:
 
 	virtual void update(float deltaTime) {};
 
-	inline void setGameObject(GameObject* gameobject) 
-	{ 
-		this->gameObject = gameObject; 
+	inline void setGameObject(GameObject* gameobject)
+	{
+		this->gameObject = gameObject;
 	}
 };

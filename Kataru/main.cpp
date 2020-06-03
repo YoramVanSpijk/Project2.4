@@ -8,8 +8,9 @@
 
 #include "tigl.h"
 #include "FpsCam.h"
-#include "GameObject.h"
 #include "CameraObject.h"
+#include "GameObject.h"
+#include "VisionCamera.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -87,6 +88,7 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
+    attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f,0.0f,0.f));
 }
 
 void update()
@@ -107,9 +109,6 @@ void draw()
     int width, height;
     glfwGetWindowSize(window, &width, &height);
     glViewport(0, 0, width, height);
-
-    glm::mat4 worldModel = glm::mat4(1.0f);
-    worldModel = glm::scale(worldModel, glm::vec3(1.0f, 1.0f, 1.0f));
 
     glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
     tigl::shader->setProjectionMatrix(projection);

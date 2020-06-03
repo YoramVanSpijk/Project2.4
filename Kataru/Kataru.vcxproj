@@ -163,6 +163,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tigl.cpp" />
+    <ClCompile Include="VisionCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraObject.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="FpsCam.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="tigl.h" />
+    <ClInclude Include="VisionCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

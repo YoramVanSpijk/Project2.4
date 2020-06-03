@@ -7,10 +7,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 #include "tigl.h"
-#include "FpsCam.h"
-#include "CameraObject.h"
 #include "GameObject.h"
-#include "CameraObject.h"
 #include "GuiObject.h"
 #include "MenuGuiComponent.h"
 #include "GameStateHandler.h"
@@ -27,7 +24,6 @@ double lastFrameTime;
 GameStateHandler* gameStateHandler;
 GameStateHandler::GameState currentGameState;
 
-std::vector<CameraObject*> cameraObjects;
 std::vector<GuiObject*> guiObjects;
 std::vector<GameObject*> gameObjects;
 
@@ -73,7 +69,7 @@ int main(void)
     return 0;
 }
 
-void attachGameObject(GameObject* gameObject = nullptr, Component* component = nullptr, glm::vec3 pos = glm::vec3(0, 0, 0))
+void attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos = glm::vec3(0, 0, 0))
 {
     GameObject* obj = gameObject == nullptr ? new GameObject() : gameObject;
     obj->position = pos;
@@ -83,7 +79,7 @@ void attachGameObject(GameObject* gameObject = nullptr, Component* component = n
 
     gameObjects.push_back(obj);
 }
-void attachGuiObject(GLFWwindow* window, GuiObject* guiObject = nullptr, GuiComponent* guiComponent = nullptr)
+void attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
 {
     GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
 
@@ -91,16 +87,6 @@ void attachGuiObject(GLFWwindow* window, GuiObject* guiObject = nullptr, GuiComp
         obj->addGuiComponent(guiComponent);
 
     guiObjects.push_back(obj);
-}
-
-void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr, FpsCam* camera = nullptr)
-{
-    CameraObject* obj = cameraObject == nullptr ? new CameraObject(window) : cameraObject;
-
-    if (camera != nullptr)
-        obj->addCamera(camera);
-
-    cameraObjects.push_back(obj);
 }
 
 void initImGui()
@@ -128,9 +114,8 @@ void init()
     SetMouseCursorVisibility(GLFW_CROSSHAIR_CURSOR);
     
     lastFrameTime = 0;
-    attachCameraObject(window, nullptr, new FpsCam(window));
-    attachGuiObject(window, nullptr, new MenuGuiComponent(gameStateHandler));
-    attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f,0.0f,0.f));
+    attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
+    attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
 }
 
 void SetMouseCursorVisibility(int value)
@@ -147,9 +132,6 @@ void update()
     lastFrameTime = currentFrameTime;
 
     gameStateHandler->GetGamestate(&currentGameState);
-    
-    for (size_t i = 0; i < cameraObjects.size(); i++)
-        cameraObjects[i]->update(window);
 
     switch (currentGameState)
     {
@@ -180,9 +162,6 @@ void draw()
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    for (size_t i = 0; i < cameraObjects.size(); i++)
-        cameraObjects[i]->draw();
 
     switch (currentGameState)
     {

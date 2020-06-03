@@ -36,12 +36,6 @@
     <ClCompile Include="DrawComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="CameraObject.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="FpsCam.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="VisionCamera.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -87,12 +81,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="DrawComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraObject.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="FpsCam.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="VisionCamera.h">

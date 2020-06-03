@@ -92,10 +92,21 @@ void VisionCamera::draw()
 			drawKeypoints(frame, keypoints, frame, cv::Scalar(255, 0, 0), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
 			for (int i = 0; i < keypoints.size(); i++) {
-				cv::Point2f p = keypoints[i].pt;
-				//std::cout << "X: " << p.x << ", Y: " << p.y << "\n";
-				this->currentPoint = cv::Point2f(p.x, p.y);
-				circle(frame, p, 4, cv::Scalar(0, 0, 255), -1, 8, 0);
+				cv::Point2f pRaw = cv::Point2f(keypoints[i].pt.x - (frame.size().width / 2), keypoints[i].pt.y - (frame.size().height / 2));
+
+				if (pRaw.y < 0) {
+					pRaw.y -= pRaw.y * 2;
+				}
+				else {
+					pRaw.y *= -1;
+				}
+
+				cv::Point2f pFormat = cv::Point2f(pRaw.x, pRaw.y);
+				
+				std::cout << "X: " << pFormat.x << ", Y: " << pFormat.y << "\n";
+				this->currentPoint = cv::Point2f(pFormat.x, pFormat.y);
+
+				circle(frame, keypoints[i].pt, 4, cv::Scalar(0, 0, 255), -1, 8, 0);
 			}
 		}
 

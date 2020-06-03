@@ -30,7 +30,11 @@ std::vector<GameObject*> gameObjects;
 const char* glsl_version = "#version 130";
 void initImGui();
 
-void SetMouseCursorVisibility(int value);
+bool cursorChangeMenu;
+bool cursorChangeGame;
+void setMouseCursorVisibilityMenu();
+void setMouseCursorVisibilityGame(int value);
+void setMouseCursorVisibility(int value);
 
 void init();
 void update();
@@ -111,14 +115,32 @@ void init()
             glfwSetWindowShouldClose(window, true);
     });
 
-    SetMouseCursorVisibility(GLFW_CROSSHAIR_CURSOR);
-    
+    cursorChangeMenu = true;
+    cursorChangeGame = true;
     lastFrameTime = 0;
     attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
 }
 
-void SetMouseCursorVisibility(int value)
+void setMouseCursorVisibilityMenu()
+{
+    if (cursorChangeMenu)
+    {
+        setMouseCursorVisibility(GLFW_CROSSHAIR_CURSOR);
+        cursorChangeMenu = false;
+    }
+}
+
+void setMouseCursorVisibilityGame()
+{
+    if (cursorChangeGame)
+    {
+        setMouseCursorVisibility(GLFW_CURSOR_HIDDEN);
+        cursorChangeGame = false;
+    }
+}
+
+void setMouseCursorVisibility(int value)
 {
     glfwSetInputMode(window, GLFW_CURSOR, value);
     if (glfwRawMouseMotionSupported())
@@ -136,11 +158,15 @@ void update()
     switch (currentGameState)
     {
         case GameStateHandler::GameState::Menu:
+            setMouseCursorVisibilityMenu();
+
             for (size_t i = 0; i < guiObjects.size(); i++)
                 guiObjects[i]->update(deltaTime);
 
             break;
         case GameStateHandler::GameState::Game:
+            setMouseCursorVisibilityGame();
+
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->update(deltaTime);
 

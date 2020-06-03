@@ -33,7 +33,7 @@ void initImGui();
 bool cursorChangeMenu;
 bool cursorChangeGame;
 void setMouseCursorVisibilityMenu();
-void setMouseCursorVisibilityGame(int value);
+void setMouseCursorVisibilityGame();
 void setMouseCursorVisibility(int value);
 
 void init();
@@ -135,7 +135,7 @@ void setMouseCursorVisibilityGame()
 {
     if (cursorChangeGame)
     {
-        setMouseCursorVisibility(GLFW_CURSOR_HIDDEN);
+        setMouseCursorVisibility(GLFW_CURSOR_DISABLED);
         cursorChangeGame = false;
     }
 }

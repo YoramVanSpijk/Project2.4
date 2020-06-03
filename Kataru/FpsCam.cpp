@@ -52,6 +52,7 @@ void FpsCam::draw()
 		flip(frame, frame, 3);
 
 		cvtColor(frame, frame, CV_BGR2RGB);
+
 		glBindTexture(GL_TEXTURE_2D, texId);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, frame.cols, frame.rows, 0, GL_RGB, GL_UNSIGNED_BYTE, frame.data);
 

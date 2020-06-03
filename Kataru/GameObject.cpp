@@ -45,9 +45,9 @@ void GameObject::draw(const glm::mat4 &parentMatrix)
 
 	glm::mat4 modelMatrix = parentMatrix;
 	modelMatrix = glm::translate(modelMatrix, position);
-	modelMatrix = glm::rotate(modelMatrix, position.x, glm::vec3(1, 0, 0));
-	modelMatrix = glm::rotate(modelMatrix, position.y, glm::vec3(0, 1, 0));
-	modelMatrix = glm::rotate(modelMatrix, position.z, glm::vec3(0, 0, 1));
+	modelMatrix = glm::rotate(modelMatrix, rotation.x, glm::vec3(1, 0, 0));
+	modelMatrix = glm::rotate(modelMatrix, rotation.y, glm::vec3(0, 1, 0));
+	modelMatrix = glm::rotate(modelMatrix, rotation.z, glm::vec3(0, 0, 1));
 	modelMatrix = glm::scale(modelMatrix, scale);
 
 	tigl::shader->setModelMatrix(modelMatrix);

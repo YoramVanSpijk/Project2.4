@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "tigl.h"
 #include "Texture.h"

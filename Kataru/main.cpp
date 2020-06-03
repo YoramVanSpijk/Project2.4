@@ -57,10 +57,12 @@ int main(void)
     return 0;
 }
 
-void attachGameObject(GameObject* gameObject = nullptr, Component* component = nullptr, glm::vec3 pos = glm::vec3(0, 0, 0))
+void attachGameObject(GameObject* gameObject = nullptr, Component* component = nullptr, glm::vec3 pos = glm::vec3(0, 0, 0), glm::vec3 rotation = glm::vec3(0, 0, 0), float scale = 1.0f)
 {
     GameObject* obj = gameObject == nullptr ? new GameObject() : gameObject;
     obj->position = pos;
+    obj->rotation = rotation;
+    obj->scale = glm::vec3(scale, scale, scale);
 
     if (component != nullptr)
         obj->addComponent(component);
@@ -89,7 +91,8 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
-    attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"));
+    attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, 1, 0), glm::vec3(0, 0, 0), 0.01f);
+    attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(3, 0, 0), glm::vec3(5, 5, 0), 0.01f);
 }
 
 

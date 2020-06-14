@@ -1,4 +1,6 @@
 #include "VisionCamera.h"
+#include <atomic>         // std::atomic, std::atomic_flag, ATOMIC_FLAG_INIT
+#include <thread>         // std::thread, std::this_thread::yield
 #include <iostream>
 
 VisionCamera::VisionCamera(GLFWwindow* window)

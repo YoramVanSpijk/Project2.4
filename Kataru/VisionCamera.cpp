@@ -1,6 +1,4 @@
 #include "VisionCamera.h"
-#include <atomic>         // std::atomic, std::atomic_flag, ATOMIC_FLAG_INIT
-#include <thread>         // std::thread, std::this_thread::yield
 #include <iostream>
 
 VisionCamera::VisionCamera(GLFWwindow* window)
@@ -16,6 +14,8 @@ VisionCamera::VisionCamera(GLFWwindow* window)
 		this->noCameraError = false;
     }
 
+	cap.set(CV_CAP_PROP_BUFFERSIZE, 1); //now the opencv buffer just one frame.
+
     glGenTextures(1, &camTexId);
     glBindTexture(GL_TEXTURE_2D, camTexId);
 
@@ -29,8 +29,10 @@ VisionCamera::VisionCamera(GLFWwindow* window)
     this->params.filterByArea = true;
     this->params.minArea = minAreaBlob;
     this->params.maxArea = maxAreaBlob;
-}
 
+	captureThread = std::thread(&VisionCamera::getFrame);
+	captureThread.join();
+}
 
 VisionCamera::~VisionCamera()
 {
@@ -57,12 +59,14 @@ void VisionCamera::draw()
 	tigl::shader->enableColor(false);
 	tigl::shader->enableTexture(true);
 
-	if (cap.read(frame)) {
+	cv::Mat frame = frameAtomic.load(std::memory_order_relaxed);
+
+	if (!frame.empty()){
 		flip(frame, frame, 3);
 
 		// Size of ROI for color selecting
-		cv::Rect rLeft = cv::Rect((frame.size().width / 2) - 10, (frame.size().height / 2) - 20, 20, 40);
-		cv::Rect rRight = cv::Rect((frame.size().width / 2) + 10, (frame.size().height / 2) - 20, 20, 40);
+		cv::Rect rLeft((frame.size().width / 2) - 10, (frame.size().height / 2) - 20, 20, 40);
+		cv::Rect rRight((frame.size().width / 2) + 10, (frame.size().height / 2) - 20, 20, 40);
 
 		// Cropping ROI from main frame
 		croppedImageL = frame(rLeft);
@@ -94,7 +98,7 @@ void VisionCamera::draw()
 			drawKeypoints(frame, keypoints, frame, cv::Scalar(255, 0, 0), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
 			for (int i = 0; i < keypoints.size(); i++) {
-				cv::Point2f pRaw = cv::Point2f(keypoints[i].pt.x - (frame.size().width / 2), keypoints[i].pt.y - (frame.size().height / 2));
+				cv::Point2f pRaw(keypoints[i].pt.x - (frame.size().width / 2), keypoints[i].pt.y - (frame.size().height / 2));
 
 				if (pRaw.y < 0) {
 					pRaw.y -= pRaw.y * 2;
@@ -103,8 +107,8 @@ void VisionCamera::draw()
 					pRaw.y *= -1;
 				}
 
-				cv::Point2f pFormat = cv::Point2f(pRaw.x, pRaw.y);
-				
+				cv::Point2f pFormat(pRaw.x, pRaw.y);
+
 				std::cout << "X: " << pFormat.x << ", Y: " << pFormat.y << "\n";
 				this->currentPoint = cv::Point2f(pFormat.x, pFormat.y);
 
@@ -156,7 +160,7 @@ void VisionCamera::draw()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
 
-	glm::mat4 camModel = glm::mat4(1.0f);
+	auto camModel = glm::mat4(1.0f);
 	camModel = glm::translate(camModel, glm::vec3(-1.0f, -0.5f, -1.0f));
 	tigl::shader->setModelMatrix(camModel);
 
@@ -166,4 +170,13 @@ void VisionCamera::draw()
 	tigl::addVertex(tigl::Vertex::PT(glm::vec3(2.0f, 1.0f, 0.0f), glm::vec2(1, -1)));
 	tigl::addVertex(tigl::Vertex::PT(glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0, -1)));
 	tigl::end();
+}
+
+void VisionCamera::getFrame()
+{
+	while (true) {
+		cv::Mat frame;
+		cap.read(frame);
+		frameAtomic.store(frame, std::memory_order_relaxed);
+	}
 }

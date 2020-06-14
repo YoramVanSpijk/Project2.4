@@ -1,7 +1,8 @@
 #pragma once
 #include "DrawComponent.h"
 #include "tigl.h"
-
+#include <atomic>
+#include <thread>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -26,9 +27,11 @@ private:
 	const std::string CONTROLS_TAG = "Controls";
 	const std::string MASK_TAG = "Mask";
 
-	cv::Mat frame, hsvImage, erosionDst, dilationDst, element, croppedImageL, croppedImageR, lHSV, rHSV, mask;
-	int hLowThreshold, hHighThreshold, sLowThreshold, sHighThreshold, vLowThreshold, vHighThreshold, minAreaBlob, maxAreaBlob, offsetHighThreshold, offsetLowThreshold;
+	cv::Mat hsvImage, erosionDst, dilationDst, element, croppedImageL, croppedImageR, lHSV, rHSV, mask;
+	std::atomic<cv::Mat> frameAtomic;
 	
+	int hLowThreshold, hHighThreshold, sLowThreshold, sHighThreshold, vLowThreshold, vHighThreshold, minAreaBlob, maxAreaBlob, offsetHighThreshold, offsetLowThreshold;
+
 	cv::SimpleBlobDetector::Params params;
 	cv::VideoCapture cap;
 	cv::Point2f currentPoint;
@@ -39,9 +42,11 @@ private:
 	//Others
 	bool colorDetected = false;
 	bool noCameraError = true;
+	std::thread captureThread;
 
 	void update(float deltaTime);
 	void draw();
+	void getFrame();
 };
 
 

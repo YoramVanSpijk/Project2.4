@@ -79,8 +79,6 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
-    //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, 1, 0), glm::vec3(0, 0, 0), 0.01f);
-    //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(3, 0, 0), glm::vec3(5, 5, 0), 0.01f);
 }
 
 

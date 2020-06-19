@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "CameraObject.h"
 #include "ObjModel.h"
+#include "ObjSpawner.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -22,7 +23,7 @@ GLFWwindow* window;
 double lastFrameTime;
 
 std::vector<CameraObject*> cameraObjects;
-std::vector<GameObject*> gameObjects;
+ObjSpawner objSpawner;
 
 void init();
 void update();
@@ -57,19 +58,6 @@ int main(void)
     return 0;
 }
 
-void attachGameObject(GameObject* gameObject = nullptr, Component* component = nullptr, glm::vec3 pos = glm::vec3(0, 0, 0), glm::vec3 rotation = glm::vec3(0, 0, 0), float scale = 1.0f)
-{
-    GameObject* obj = gameObject == nullptr ? new GameObject() : gameObject;
-    obj->position = pos;
-    obj->rotation = rotation;
-    obj->scale = glm::vec3(scale, scale, scale);
-
-    if (component != nullptr)
-        obj->addComponent(component);
-
-    gameObjects.push_back(obj);
-}
-
 void attachCameraObject(GLFWwindow* window, CameraObject* cameraObject = nullptr, FpsCam* camera = nullptr)
 {
     CameraObject* obj = cameraObject == nullptr ? new CameraObject(window) : cameraObject;
@@ -91,8 +79,8 @@ void init()
     
     lastFrameTime = 0;
     attachCameraObject(window, nullptr, new FpsCam(window));
-    attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, 1, 0), glm::vec3(0, 0, 0), 0.01f);
-    attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(3, 0, 0), glm::vec3(5, 5, 0), 0.01f);
+    //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, 1, 0), glm::vec3(0, 0, 0), 0.01f);
+    //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(3, 0, 0), glm::vec3(5, 5, 0), 0.01f);
 }
 
 
@@ -105,8 +93,7 @@ void update()
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->update(window);
 
-    for (size_t i = 0; i < gameObjects.size(); i++)
-        gameObjects[i]->update(deltaTime);
+    objSpawner.update(deltaTime);
 }
 
 void draw()
@@ -117,6 +104,5 @@ void draw()
     for (size_t i = 0; i < cameraObjects.size(); i++)
         cameraObjects[i]->draw();
 
-    for (size_t i = 0; i < gameObjects.size(); i++)
-        gameObjects[i]->draw();
+    objSpawner.draw();
 }

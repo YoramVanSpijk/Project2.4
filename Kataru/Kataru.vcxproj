@@ -163,6 +163,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjModel.cpp" />
+    <ClCompile Include="ObjSpawner.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="FpsCam.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ObjModel.h" />
+    <ClInclude Include="ObjSpawner.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="tigl.h" />

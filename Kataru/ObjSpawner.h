@@ -11,8 +11,8 @@ public:
 	ObjSpawner();
 	~ObjSpawner();
 
-	void attachGameObject(Component* component, glm::vec3 pos, glm::vec3 rotation, float scale);
-	void removeGameObject(GameObject* gameObject);
+	void attachGameObject(GameObject* obj);
+	void removeGameObject(GameObject* obj);
 
 	void update(double deltaTime);
 	void draw();
@@ -21,5 +21,6 @@ private:
 	std::vector<GameObject*> gameObjects;
 	std::thread thread;
 	static void spawn(ObjSpawner* spawner);
+	static double fRand(double fMin, double fMax);
 };
 

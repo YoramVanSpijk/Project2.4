@@ -5,8 +5,10 @@
 #include <glm\ext\matrix_transform.hpp>
 #include "tigl.h"
 
-GameObject::GameObject()
+GameObject::GameObject(Component* component, glm::vec3 pos, glm::vec3 rotation, glm::vec3 scale)
+	: position(pos), rotation(rotation), scale(scale)
 {
+	this->addComponent(component);
 }
 
 GameObject::~GameObject()

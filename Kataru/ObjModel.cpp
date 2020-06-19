@@ -190,6 +190,7 @@ void ObjModel::draw()
 {
 	for (auto group : this->groups)
 	{
+		materials[group->materialIndex]->texture->bind();
 		tigl::begin(GL_TRIANGLES);
 		for (auto& face : group->faces)
 		{

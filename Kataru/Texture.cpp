@@ -4,7 +4,7 @@
 
 Texture::Texture(const std::string& fileName)
 	: id(-1)
-{
+{ 
 	glGenTextures(1, &this->id);
 	glBindTexture(GL_TEXTURE_2D, this->id);
 	stbi_set_flip_vertically_on_load(true);
@@ -19,4 +19,9 @@ Texture::Texture(const std::string& fileName)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	stbi_image_free(data);
+}
+
+void Texture::bind()
+{
+	glBindTexture(GL_TEXTURE_2D, this->id);
 }

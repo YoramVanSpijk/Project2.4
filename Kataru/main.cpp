@@ -16,6 +16,7 @@
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "opencv_world341.lib")
 #pragma comment(lib, "opencv_world341d.lib")
 
 GLFWwindow* window;
@@ -83,6 +84,7 @@ void attachGameObject(GameObject* gameObject, Component* component, glm::vec3 po
 
     gameObjects.push_back(obj);
 }
+
 void attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
 {
     GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;

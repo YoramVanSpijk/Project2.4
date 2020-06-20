@@ -12,6 +12,7 @@ class GameObject
 	DrawComponent* drawComponent = nullptr;
 
 public:
+	GameObject() = default;
 	GameObject(Component* component, glm::vec3 pos, glm::vec3 rotation, glm::vec3 scale);
 	~GameObject();
 

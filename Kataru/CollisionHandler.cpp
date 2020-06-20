@@ -56,18 +56,18 @@ void CollisionHandler::check(cv::Point2f handPos, glm::vec3 objPos)
 {
     // struct circles for hitboxes
     struct Circle handHitBox, objectHitBox;
-    handHitBox.r = 15.0f;
+    handHitBox.r = 50.0f;
     handHitBox.x = handPos.x;
     handHitBox.y = handPos.y;
 
     objectHitBox.r = 15.0f;
-    objectHitBox.x = (objPos.x + 0.15f) * 25;
-    objectHitBox.y = objPos.y * (200 / 6);
+    objectHitBox.x = (objPos.x * 2500.0f) * 1.5F;
+    objectHitBox.y = ((objPos.y + 0.005f) * 100.0f) * 20.0f;
 
     if(isColliding(handHitBox, objectHitBox)) std::cout << "Collision detected!\n";
 
-    //draw circle for object
-    drawCircle((objPos.x + 0.15f), objPos.y, objectHitBox.r / 10);
+    // Draw circle around object
+    drawCircle(objPos.x * 100.0f, (objPos.y + 0.005f) * 100.0f, objectHitBox.r / 10.0f); // Times 100 bc scaling 0.001; times 0.005f > object inside circle
 }
 
 void CollisionHandler::drawCircle(float cx, float cy, float r)

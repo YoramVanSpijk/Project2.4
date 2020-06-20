@@ -83,7 +83,7 @@ void VisionCamera::draw()
 			calculateTresholds();
 
 			// Create window for controls DEBUG
-			// createSettingsWindow();
+			createSettingsWindow();
 
 			this->colorDetected = true;
 		}

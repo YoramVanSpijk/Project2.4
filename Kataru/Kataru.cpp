@@ -195,9 +195,8 @@ void Kataru::draw()
             this->spawner->setOn(true);
             this->spawner->draw();
 
-            //collisionHandler->testCollider(window, visionCam->getCurrentPoint());
-            //for (size_t i = 0; i < this->spawner->getObjects().size(); i++)
-                //collisionHandler->check(visionCam->getCurrentPoint(), collisionObjects[0]->position());
+            for (size_t i = 0; i < this->spawner->getObjects().size(); i++)
+                collisionHandler->check(visionCam->getCurrentPoint(), this->spawner->getObjects()[i]->getPosition());
 
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();

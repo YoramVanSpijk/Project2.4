@@ -170,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="CameraObject.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Difficulty.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="FpsCam.h" />
     <ClInclude Include="GameObject.h" />

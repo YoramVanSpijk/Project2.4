@@ -69,11 +69,14 @@
     <ClCompile Include="GameStateHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="GameOverGuiComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="UserStatistics.cpp">
-		<Filter>Source Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjModel.cpp">
       <Filter>Components</Filter>
@@ -153,6 +156,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GameStateHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameOverGuiComponent.h">

@@ -18,6 +18,7 @@ public:
 
 	void update(double deltaTime);
 	void draw();
+	std::vector<GameObject*> getObjects();
 
 private:
 	std::vector<GameObject*> gameObjects;

@@ -9,7 +9,7 @@
 #include "tigl.h"
 
 ObjSpawner::ObjSpawner()
-    : difficulty(Difficulty::VETERAN), on(true)
+    : difficulty(Difficulty::KATARUNEER), on(true)
 {
     this->thread = std::thread(&ObjSpawner::spawn, this);
     srand(time(NULL));
@@ -43,9 +43,9 @@ void ObjSpawner::throwObject(int i)
     float depth = -0.1f;
 
     if (i == 0)
-        object = new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.0001f, 0.0001f, 0.0001f));
+        object = new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(ObjSpawner::fRand(-0.01f, 0.01f), floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.0001f, 0.0001f, 0.0001f));
     else if (i == 1)
-        object = new GameObject(new ObjModel("models/steve/Steve.obj"), glm::vec3(0, floor, depth), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.001f, 0.001f, 0.001f));
+        object = new GameObject(new ObjModel("models/steve/Steve.obj"), glm::vec3(ObjSpawner::fRand(-0.02f, 0.02f), floor, depth), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.001f, 0.001f, 0.001f));
     else if (i == 2)
         object = new GameObject(new ObjModel("models/cube/cube-textures.obj"), glm::vec3(0, floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f));
    
@@ -54,7 +54,7 @@ void ObjSpawner::throwObject(int i)
 
     this->attachGameObject(object);
 
-    glm::vec3 velocity(ObjSpawner::fRand(-0.001, 0.001), 0.01f, 0);//ObjSpawner::fRand(-0.1, 0.1)
+    glm::vec3 velocity(ObjSpawner::fRand(-0.001, 0.001), 0.01f, 0); //ObjSpawner::fRand(-0.1, 0.1)
     for (int i = 0; object->position.y >= floor; i++)
     {
         object->position = glm::vec3(object->position.x += velocity.x, object->position.y += velocity.y, object->position.z += velocity.z);
@@ -108,8 +108,14 @@ void ObjSpawner::update(double deltaTime)
     }
 }
 
+std::vector<GameObject*> ObjSpawner::getObjects()
+{
+    return this->gameObjects;
+}
+
 void ObjSpawner::draw()
 {
+    tigl::shader->enableTexture(false); //temp added bc textures aren't loading
     for (auto object : this->gameObjects)
     {
         object->draw();

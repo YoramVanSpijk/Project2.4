@@ -10,6 +10,7 @@ Kataru::Kataru()
     window = glfwCreateWindow(1400, 800, "Kataru", NULL, NULL);
     gameStateHandler = new GameStateHandler();
     userStatistics = new UserStatistics();
+    collisionHandler = new CollisionHandler();
 
     if (!window)
     {
@@ -37,7 +38,9 @@ Kataru::Kataru()
 
 Kataru::~Kataru()
 {
-
+    delete gameStateHandler;
+    delete userStatistics;
+    delete collisionHandler;
 }
 
 void Kataru::attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos)
@@ -124,7 +127,7 @@ void Kataru::init()
 
     this->spawner = std::unique_ptr<ObjSpawner>(new ObjSpawner());
 
-    attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
+    attachGameObject(nullptr, visionCam = new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
     attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
@@ -191,6 +194,10 @@ void Kataru::draw()
         case GameStateHandler::GameState::Game:
             this->spawner->setOn(true);
             this->spawner->draw();
+
+            for (size_t i = 0; i < this->spawner->getObjects().size(); i++)
+                collisionHandler->check(visionCam->getCurrentPoint(), this->spawner->getObjects()[i]->getPosition());
+
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();
 

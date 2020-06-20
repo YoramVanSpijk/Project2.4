@@ -55,3 +55,7 @@ void GameObject::draw()
 	tigl::shader->setModelMatrix(modelMatrix);
 	drawComponent->draw();
 }
+
+glm::vec3 GameObject::getPosition() {
+	return this->position;
+}

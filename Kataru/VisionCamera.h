@@ -42,6 +42,13 @@ private:
 
 	void update(float deltaTime);
 	void draw();
+	void drawROI();
+	void drawTexPane();
+	void bindTexture();
+	void calculateTresholds();
+	void createSettingsWindow();
+	void applyTransformations();
+	void calculateNewPoint(std::vector<cv::KeyPoint> keypoints, int i);
 };
 
 

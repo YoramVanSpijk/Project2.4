@@ -104,7 +104,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.2\include;$(SolutionDir)lib\opencv\build\include;$(SolutionDir)lib\imgui\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -159,6 +159,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameOverGuiComponent.cpp" />
     <ClCompile Include="GameStateHandler.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
     <ClCompile Include="GuiObject.cpp" />
@@ -171,12 +172,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuGuiComponent.cpp" />
     <ClCompile Include="tigl.cpp" />
+    <ClCompile Include="UserStatistics.cpp" />
     <ClCompile Include="VisionCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameOverGuiComponent.h" />
     <ClInclude Include="GameStateHandler.h" />
     <ClInclude Include="GuiComponent.h" />
     <ClInclude Include="GuiObject.h" />
@@ -190,6 +193,7 @@
     <ClInclude Include="lib\imgui\include\imstb_truetype.h" />
     <ClInclude Include="MenuGuiComponent.h" />
     <ClInclude Include="tigl.h" />
+    <ClInclude Include="UserStatistics.h" />
     <ClInclude Include="VisionCamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

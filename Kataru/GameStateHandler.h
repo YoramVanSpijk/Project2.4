@@ -10,7 +10,9 @@ public:
 	{
 		Startup,
 		Menu,
+		Calibration,
 		Game,
+		GameOver,
 		Quit
 	};
 

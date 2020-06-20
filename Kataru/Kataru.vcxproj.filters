@@ -69,6 +69,12 @@
     <ClCompile Include="GameStateHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverGuiComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UserStatistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -120,6 +126,12 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GameStateHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverGuiComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UserStatistics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

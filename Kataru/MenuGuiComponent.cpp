@@ -17,14 +17,14 @@ void MenuGuiComponent::draw(GLFWwindow* window)
     //ImGui::SetNextWindowBgAlpha(0.0f);
     ImGui::Begin("Kataru", menuActive, ImGuiWindowFlags_NoTitleBar);
 
-    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 2) - (buttonSizeY / 2)));
+    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 2) - (buttonSizeY)));
     if (ImGui::Button("Play", ImVec2(buttonSizeX, buttonSizeY)))
     {
         if (gameStateHandler != nullptr)
             gameStateHandler->SetGamestate(GameStateHandler::GameState::Game);
     }
 
-    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 2) + (buttonSizeY / 2)));
+    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 2)));
     if (ImGui::Button("Quit", ImVec2(buttonSizeX, buttonSizeY)))
     {
         if (gameStateHandler != nullptr)

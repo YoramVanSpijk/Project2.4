@@ -10,6 +10,7 @@
 #include "GameObject.h"
 #include "GuiObject.h"
 #include "MenuGuiComponent.h"
+#include "GameOverGuiComponent.h"
 #include "GameStateHandler.h"
 #include "VisionCamera.h"
 
@@ -24,7 +25,10 @@ double lastFrameTime;
 GameStateHandler* gameStateHandler;
 GameStateHandler::GameState currentGameState;
 
-std::vector<GuiObject*> guiObjects;
+UserStatistics* userStatistics;
+
+std::vector<GuiObject*> menuGuiObjects;
+std::vector<GuiObject*> gameOverGuiObjects;
 std::vector<GameObject*> gameObjects;
 
 const char* glsl_version = "#version 130";
@@ -47,6 +51,7 @@ int main(void)
 
     window = glfwCreateWindow(1400, 800, "Kataru", NULL, NULL);
     gameStateHandler = new GameStateHandler();
+    userStatistics = new UserStatistics();
 
     if (!window)
     {
@@ -83,14 +88,23 @@ void attachGameObject(GameObject* gameObject, Component* component, glm::vec3 po
 
     gameObjects.push_back(obj);
 }
-void attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
+void attachMenuGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
 {
     GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
 
     if (guiComponent != nullptr)
         obj->addGuiComponent(guiComponent);
 
-    guiObjects.push_back(obj);
+    menuGuiObjects.push_back(obj);
+}
+void attachGameOverGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
+{
+    GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
+
+    if (guiComponent != nullptr)
+        obj->addGuiComponent(guiComponent);
+
+    gameOverGuiObjects.push_back(obj);
 }
 
 void initImGui()
@@ -118,8 +132,10 @@ void init()
     cursorChangeMenu = true;
     cursorChangeGame = true;
     lastFrameTime = 0;
+
     attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
-    attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
+    attachMenuGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
+    attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
 
 void setMouseCursorVisibilityMenu()
@@ -160,8 +176,8 @@ void update()
         case GameStateHandler::GameState::Menu:
             setMouseCursorVisibilityMenu();
 
-            for (size_t i = 0; i < guiObjects.size(); i++)
-                guiObjects[i]->update(deltaTime);
+            for (size_t i = 0; i < menuGuiObjects.size(); i++)
+                menuGuiObjects[i]->update(deltaTime);
 
             break;
         case GameStateHandler::GameState::Game:
@@ -169,6 +185,11 @@ void update()
 
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->update(deltaTime);
+
+            break;
+        case GameStateHandler::GameState::GameOver:
+            for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
+                gameOverGuiObjects[i]->update(deltaTime);
 
             break;
         case GameStateHandler::GameState::Quit:
@@ -192,13 +213,22 @@ void draw()
     switch (currentGameState)
     {
         case GameStateHandler::GameState::Menu:
-            for (size_t i = 0; i < guiObjects.size(); i++)
-                guiObjects[i]->draw();
+            for (size_t i = 0; i < menuGuiObjects.size(); i++)
+                menuGuiObjects[i]->draw();
+
+            break;
+        case GameStateHandler::GameState::Calibration:
+            // TODO: Calibration phase
 
             break;
         case GameStateHandler::GameState::Game:
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();
+
+            break;
+        case GameStateHandler::GameState::GameOver:
+            for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
+                gameOverGuiObjects[i]->draw();
 
             break;
     }

@@ -19,6 +19,7 @@ class Kataru
 {
 public:
 	Kataru();
+	~Kataru();
 
 	void attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos = glm::vec3(0, 0, 0));
 	void attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent);
@@ -41,6 +42,8 @@ private:
 
 	std::vector<GuiObject*> guiObjects;
 	std::vector<GameObject*> gameObjects;
+
+	ObjSpawner* spawner;
 
 	bool cursorChangeMenu;
 	bool cursorChangeGame;

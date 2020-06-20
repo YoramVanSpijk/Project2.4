@@ -1,4 +1,5 @@
 #include "Kataru.h"
+#include "ObjModel.h"
 
 Kataru::Kataru()
 {
@@ -30,6 +31,11 @@ Kataru::Kataru()
     }
 
     glfwTerminate();
+}
+
+Kataru::~Kataru()
+{
+    delete this->spawner;
 }
 
 void Kataru::attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos)
@@ -103,7 +109,11 @@ void Kataru::init()
     cursorChangeMenu = true;
     cursorChangeGame = true;
     lastFrameTime = 0;
+
+    //this->spawner = new ObjSpawner;
+
     attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
+    //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
 }
 
@@ -114,6 +124,8 @@ void Kataru::update()
     lastFrameTime = currentFrameTime;
 
     gameStateHandler->GetGamestate(&currentGameState);
+
+    //this->spawner->update(deltaTime);
 
     switch (currentGameState)
     {
@@ -146,20 +158,22 @@ void Kataru::draw()
     glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
     tigl::shader->setProjectionMatrix(projection);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    //this->spawner->draw();
 
     switch (currentGameState)
     {
-    case GameStateHandler::GameState::Menu:
-        for (size_t i = 0; i < guiObjects.size(); i++)
-            guiObjects[i]->draw();
+        case GameStateHandler::GameState::Menu:
+            for (size_t i = 0; i < guiObjects.size(); i++)
+                guiObjects[i]->draw();
 
-        break;
-    case GameStateHandler::GameState::Game:
-        for (size_t i = 0; i < gameObjects.size(); i++)
-            gameObjects[i]->draw();
+            break;
+        case GameStateHandler::GameState::Game:
+            for (size_t i = 0; i < gameObjects.size(); i++)
+                gameObjects[i]->draw();
 
-        break;
+            break;
     }
 }

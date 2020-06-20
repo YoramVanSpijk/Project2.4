@@ -21,15 +21,15 @@ ObjSpawner::~ObjSpawner()
 
 void ObjSpawner::attachGameObject(GameObject* obj)
 {
-    gameObjects.push_back(obj);
+    this->gameObjects.push_back(obj);
 }
 
 void ObjSpawner::removeGameObject(GameObject* obj)
 {
     for (size_t i = 0; i < gameObjects.size(); i++)
     {
-        if (gameObjects[i] == obj) {
-            gameObjects.erase(gameObjects.begin() + i);
+        if (this->gameObjects.at(i) == obj) {
+            this->gameObjects.erase(this->gameObjects.begin() + i);
         }
     }
 }
@@ -77,6 +77,8 @@ void ObjSpawner::spawn(ObjSpawner* spawner)
             spawner->throwObject(i);
             std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(spawner->difficulty)));
         }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
 
@@ -87,15 +89,19 @@ double ObjSpawner::fRand(double fMin, double fMax)
     return fMin + f * (fMax - fMin);
 }
 
-//void ObjSpawner::update(double deltaTime)
-//{
-//	for (size_t i = 0; i < gameObjects.size(); i++)
-//		gameObjects[i]->update(deltaTime);
-//}
-//
-//void ObjSpawner::draw()
-//{
-//	for (size_t i = 0; i < gameObjects.size(); i++)
-//		gameObjects[i]->draw();
-//}
+void ObjSpawner::update(double deltaTime)
+{
+    for (auto object : this->gameObjects)
+    {
+        object->update(deltaTime);
+    }
+}
+
+void ObjSpawner::draw()
+{
+    for (auto object : this->gameObjects)
+    {
+        object->draw();
+    }
+}
 

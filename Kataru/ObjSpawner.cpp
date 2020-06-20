@@ -47,7 +47,7 @@ void ObjSpawner::throwObject(int i)
     else if (i == 1)
         object = new GameObject(new ObjModel("models/steve/Steve.obj"), glm::vec3(ObjSpawner::fRand(-0.02f, 0.02f), floor, depth), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.001f, 0.001f, 0.001f));
     else if (i == 2)
-        object = new GameObject(new ObjModel("models/cube/cube-textures.obj"), glm::vec3(0, floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f));
+        //object = new GameObject(new ObjModel("models/cube/cube-textures.obj"), glm::vec3(0, floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f));
    
     if (!object)
         return;

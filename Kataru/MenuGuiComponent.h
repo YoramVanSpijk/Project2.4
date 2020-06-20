@@ -13,8 +13,8 @@ public:
 	MenuGuiComponent(GameStateHandler* gameStateHandler);
 	~MenuGuiComponent();
 
-	void draw(GLFWwindow* window);
-	void update(float deltaTime);
+	void draw(GLFWwindow* window) override;
+	void update(float deltaTime) override;
 
 	void setMenuActive(bool* value);
 
@@ -22,8 +22,8 @@ private:
 	GameStateHandler* gameStateHandler;
 	bool* menuActive;
 
-	int buttonSizeX = 200;
-	int buttonSizeY = 75;
+	const int buttonSizeX = 200;
+	const int buttonSizeY = 75;
 
 	int windowSizeHeight;
 	int windowSizeWidth;

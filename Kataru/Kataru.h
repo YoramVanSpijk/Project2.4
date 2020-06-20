@@ -43,7 +43,7 @@ private:
 	std::vector<GuiObject*> guiObjects;
 	std::vector<GameObject*> gameObjects;
 
-	ObjSpawner* spawner;
+	std::unique_ptr<ObjSpawner> spawner;
 
 	bool cursorChangeMenu;
 	bool cursorChangeGame;

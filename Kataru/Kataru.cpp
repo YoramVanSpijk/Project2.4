@@ -35,7 +35,7 @@ Kataru::Kataru()
 
 Kataru::~Kataru()
 {
-    delete this->spawner;
+
 }
 
 void Kataru::attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos)
@@ -110,10 +110,11 @@ void Kataru::init()
     cursorChangeGame = true;
     lastFrameTime = 0;
 
-    //this->spawner = new ObjSpawner;
+    this->spawner = std::unique_ptr<ObjSpawner>(new ObjSpawner());
 
-    attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
+    //attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
     //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0.0f, 0.0f, 0.0f));
+    //this->gameObjects.push_back(new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(-1, -0.5f, -1), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f)));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
 }
 
@@ -124,8 +125,6 @@ void Kataru::update()
     lastFrameTime = currentFrameTime;
 
     gameStateHandler->GetGamestate(&currentGameState);
-
-    //this->spawner->update(deltaTime);
 
     switch (currentGameState)
     {
@@ -138,7 +137,7 @@ void Kataru::update()
         break;
     case GameStateHandler::GameState::Game:
         setMouseCursorVisibilityGame();
-
+        this->spawner->update(deltaTime);
         for (size_t i = 0; i < gameObjects.size(); i++)
             gameObjects[i]->update(deltaTime);
 
@@ -151,6 +150,9 @@ void Kataru::update()
 
 void Kataru::draw()
 {
+    glClearColor(0.2f, 0.2f, 0.6f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     int width, height;
     glfwGetWindowSize(window, &width, &height);
     glViewport(0, 0, width, height);
@@ -158,19 +160,17 @@ void Kataru::draw()
     glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
     tigl::shader->setProjectionMatrix(projection);
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    //this->spawner->draw();
-
     switch (currentGameState)
     {
         case GameStateHandler::GameState::Menu:
+            this->spawner->setOn(false);
             for (size_t i = 0; i < guiObjects.size(); i++)
                 guiObjects[i]->draw();
 
             break;
         case GameStateHandler::GameState::Game:
+            this->spawner->setOn(true);
+            this->spawner->draw();
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();
 

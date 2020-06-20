@@ -6,9 +6,10 @@
 #include <stdlib.h> 
 #include <time.h>   
 #include <glm\ext\matrix_transform.hpp>
+#include "tigl.h"
 
 ObjSpawner::ObjSpawner()
-    : difficulty(Difficulty::VETERAN)
+    : difficulty(Difficulty::VETERAN), on(true)
 {
     this->thread = std::thread(&ObjSpawner::spawn, this);
     srand(time(NULL));
@@ -39,25 +40,26 @@ void ObjSpawner::throwObject(int i)
     GameObject* object = nullptr;
 
     if (i == 0)
-        object = new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, 0, -10), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f));
+        object = new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0, 0, -3), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f));
     else if (i == 1)
-        object = new GameObject(new ObjModel("models/steve/Steve.obj"), glm::vec3(0, 0, -10), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.1f, 0.1f, 0.1f));
+        object = new GameObject(new ObjModel("models/steve/Steve.obj"), glm::vec3(0, 0, -3), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.1f, 0.1f, 0.1f));
     else if (i == 2)
-        object = new GameObject(new ObjModel("models/cube/cube-textures.obj"), glm::vec3(0, 0, -10), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
+        object = new GameObject(new ObjModel("models/cube/cube-textures.obj"), glm::vec3(0, 0, -3), glm::vec3(0, 0, 0), glm::vec3(1, 1, 1));
    
     if (!object)
         return;
 
     this->attachGameObject(object);
 
-    glm::vec3 velocity(ObjSpawner::fRand(-0.2, 0.2), 1, 0.5f);
-    for (int i = 0; object->position.y >= 0; i++)
-    {
-        object->position = glm::vec3(object->position.x += velocity.x, object->position.y += velocity.y, object->position.z += velocity.z);
-        velocity.y -= 0.01 * i;
+    //glm::vec3 velocity(ObjSpawner::fRand(-0.2, 0.2), 1, 0.5f);
+    //for (int i = 0; object->position.y >= 0; i++)
+    //{
+    //    object->position = glm::vec3(object->position.x += velocity.x, object->position.y += velocity.y, object->position.z += velocity.z);
+    //    velocity.y -= 0.01 * i;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
+    //    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    //}
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
     this->removeGameObject(object);
     delete object;
@@ -68,20 +70,27 @@ void ObjSpawner::setDifficulty(Difficulty difficulty)
     this->difficulty = difficulty;
 }
 
+void ObjSpawner::setOn(bool on)
+{
+    this->on = on;
+}
+
 void ObjSpawner::spawn(ObjSpawner* spawner)
 {
     while (true)
     {
-        for (int i = 0; i < 3; i++)
+        if (spawner->on)
         {
-            spawner->throwObject(i);
-            std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(spawner->difficulty)));
+            for (int i = 0; i < 3; i++)
+            {
+                //spawner->throwObject(i);
+                std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(spawner->difficulty)));
+            }
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
-
 
 double ObjSpawner::fRand(double fMin, double fMax)
 {

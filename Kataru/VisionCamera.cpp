@@ -91,8 +91,9 @@ void VisionCamera::draw()
 			detector->detect(mask, keypoints);
 			drawKeypoints(frame, keypoints, frame, cv::Scalar(255, 0, 0), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 
-			for (int i = 0; i < keypoints.size(); i++) {
-				cv::Point2f pRaw = cv::Point2f(keypoints[i].pt.x - (frame.size().width / 2), keypoints[i].pt.y - (frame.size().height / 2));
+			for (int i = 0; i < keypoints.size(); i++) 
+			{
+				cv::Point2f pRaw (keypoints[i].pt.x - (frame.size().width / 2), keypoints[i].pt.y - (frame.size().height / 2));
 
 				if (pRaw.y < 0) {
 					pRaw.y -= pRaw.y * 2;

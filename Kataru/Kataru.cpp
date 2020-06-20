@@ -112,9 +112,7 @@ void Kataru::init()
 
     this->spawner = std::unique_ptr<ObjSpawner>(new ObjSpawner());
 
-    //attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
-    //attachGameObject(nullptr, new ObjModel("models/car/honda_jazz.obj"), glm::vec3(0.0f, 0.0f, 0.0f));
-    //this->gameObjects.push_back(new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(-1, -0.5f, -1), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f)));
+    attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
 }
 

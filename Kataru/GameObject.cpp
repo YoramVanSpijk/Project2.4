@@ -5,8 +5,10 @@
 #include <glm\ext\matrix_transform.hpp>
 #include "tigl.h"
 
-GameObject::GameObject()
+GameObject::GameObject(Component* component, glm::vec3 pos, glm::vec3 rotation, glm::vec3 scale)
+	: position(pos), rotation(rotation), scale(scale)
 {
+	this->addComponent(component);
 }
 
 GameObject::~GameObject()
@@ -45,9 +47,9 @@ void GameObject::draw()
 
 	glm::mat4 modelMatrix = glm::mat4();
 	modelMatrix = glm::translate(modelMatrix, position);
-	modelMatrix = glm::rotate(modelMatrix, position.x, glm::vec3(1, 0, 0));
-	modelMatrix = glm::rotate(modelMatrix, position.y, glm::vec3(0, 1, 0));
-	modelMatrix = glm::rotate(modelMatrix, position.z, glm::vec3(0, 0, 1));
+	modelMatrix = glm::rotate(modelMatrix, rotation.x, glm::vec3(1, 0, 0));
+	modelMatrix = glm::rotate(modelMatrix, rotation.y, glm::vec3(0, 1, 0));
+	modelMatrix = glm::rotate(modelMatrix, rotation.z, glm::vec3(0, 0, 1));
 	modelMatrix = glm::scale(modelMatrix, scale);
 
 	tigl::shader->setModelMatrix(modelMatrix);

@@ -12,12 +12,12 @@ class GameObject
 	DrawComponent* drawComponent = nullptr;
 
 public:
-	GameObject();
+	GameObject(Component* component, glm::vec3 pos, glm::vec3 rotation, glm::vec3 scale);
 	~GameObject();
 
 	glm::vec3 position;
 	glm::vec3 rotation;
-	glm::vec3 scale = glm::vec3(1, 1, 1);
+	glm::vec3 scale;
 
 	void addComponent(Component* component);
 	void removeComponent(Component* component);

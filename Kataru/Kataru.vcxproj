@@ -169,14 +169,22 @@
     <ClCompile Include="lib\imgui\include\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\include\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjModel.cpp" />
+    <ClCompile Include="ObjSpawner.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="MenuGuiComponent.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="VisionCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Difficulty.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ObjModel.h" />
+    <ClInclude Include="ObjSpawner.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="GameStateHandler.h" />
     <ClInclude Include="GuiComponent.h" />
     <ClInclude Include="GuiObject.h" />

@@ -6,12 +6,14 @@
 #include "imgui_impl_opengl3.h"
 
 #include "GameStateHandler.h"
+#include "UserStatistics.h"
 
-class MenuGuiComponent : public GuiComponent
+
+class GameOverGuiComponent : public GuiComponent
 {
 public:
-	MenuGuiComponent(GameStateHandler* gameStateHandler);
-	~MenuGuiComponent();
+	GameOverGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics);
+	~GameOverGuiComponent();
 
 	void draw(GLFWwindow* window) override;
 	void update(float deltaTime) override;
@@ -20,6 +22,8 @@ public:
 
 private:
 	GameStateHandler* gameStateHandler;
+	UserStatistics* userStatistics;
+
 	bool* menuActive;
 
 	const int buttonSizeX = 200;

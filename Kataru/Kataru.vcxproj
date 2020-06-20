@@ -185,13 +185,11 @@
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Kataru.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="ObjSpawner.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverGuiComponent.h" />
     <ClInclude Include="GameStateHandler.h" />
     <ClInclude Include="GuiComponent.h" />

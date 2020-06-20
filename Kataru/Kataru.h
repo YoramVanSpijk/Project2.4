@@ -15,6 +15,7 @@
 #include "VisionCamera.h"
 #include "ObjSpawner.h"
 #include "UserStatistics.h"
+#include "CollisionHandler.h"
 
 class Kataru
 {
@@ -39,10 +40,12 @@ private:
 	GLFWwindow* window;
 	double lastFrameTime;
 
+	CollisionHandler* collisionHandler;
 	GameStateHandler* gameStateHandler;
 	GameStateHandler::GameState currentGameState;
 
 	UserStatistics* userStatistics;
+	VisionCamera* visionCam;
 
 	std::vector<GuiObject*> menuGuiObjects;
 	std::vector<GuiObject*> gameOverGuiObjects;

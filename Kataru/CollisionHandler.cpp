@@ -104,7 +104,7 @@ bool CollisionHandler::isColliding(Circle hand, Circle obj)
 {
     // Print debug data
     //std::cout << "hX: " << hand.x << ", hY: " << hand.y << "\n";
-    //std::cout << "oX: " << obj.x << ", oY: " << obj.y << "\n";
+    std::cout << "oX: " << obj.x << ", oY: " << obj.y << "\n";
 
     // Calculate distance between hitboxes
     auto dx = hand.x - obj.x;

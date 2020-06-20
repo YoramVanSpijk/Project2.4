@@ -87,15 +87,15 @@ double ObjSpawner::fRand(double fMin, double fMax)
     return fMin + f * (fMax - fMin);
 }
 
-void ObjSpawner::update(double deltaTime)
-{
-	for (size_t i = 0; i < gameObjects.size(); i++)
-		gameObjects[i]->update(deltaTime);
-}
-
-void ObjSpawner::draw()
-{
-	for (size_t i = 0; i < gameObjects.size(); i++)
-		gameObjects[i]->draw();
-}
+//void ObjSpawner::update(double deltaTime)
+//{
+//	for (size_t i = 0; i < gameObjects.size(); i++)
+//		gameObjects[i]->update(deltaTime);
+//}
+//
+//void ObjSpawner::draw()
+//{
+//	for (size_t i = 0; i < gameObjects.size(); i++)
+//		gameObjects[i]->draw();
+//}
 

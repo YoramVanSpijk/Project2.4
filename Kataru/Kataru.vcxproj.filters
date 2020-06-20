@@ -78,6 +78,9 @@
     <ClCompile Include="ObjSpawner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Kataru.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -144,6 +147,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GameStateHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kataru.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

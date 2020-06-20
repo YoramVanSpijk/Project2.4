@@ -162,6 +162,7 @@
     <ClCompile Include="GameStateHandler.cpp" />
     <ClCompile Include="GuiComponent.cpp" />
     <ClCompile Include="GuiObject.cpp" />
+    <ClCompile Include="Kataru.cpp" />
     <ClCompile Include="lib\imgui\include\imgui.cpp" />
     <ClCompile Include="lib\imgui\include\imgui_demo.cpp" />
     <ClCompile Include="lib\imgui\include\imgui_draw.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Kataru.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="ObjSpawner.h" />
     <ClInclude Include="stb_image.h" />

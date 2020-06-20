@@ -12,6 +12,7 @@
 #include "MenuGuiComponent.h"
 #include "GameStateHandler.h"
 #include "VisionCamera.h"
+#include "ObjSpawner.h"
 
 #pragma comment(lib, "glfw3.lib")
 #pragma comment(lib, "glew32s.lib")
@@ -28,11 +29,13 @@ GameStateHandler::GameState currentGameState;
 std::vector<GuiObject*> guiObjects;
 std::vector<GameObject*> gameObjects;
 
-const char* glsl_version = "#version 130";
-void initImGui();
-
 bool cursorChangeMenu;
 bool cursorChangeGame;
+
+const char* glsl_version = "#version 130";
+
+
+void initImGui();
 void setMouseCursorVisibilityMenu();
 void setMouseCursorVisibilityGame();
 void setMouseCursorVisibility(int value);

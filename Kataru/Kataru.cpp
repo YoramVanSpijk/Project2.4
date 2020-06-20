@@ -1,5 +1,6 @@
 #include "Kataru.h"
 #include "ObjModel.h"
+#include "GameOverGuiComponent.h"
 
 Kataru::Kataru()
 {
@@ -8,6 +9,7 @@ Kataru::Kataru()
 
     window = glfwCreateWindow(1400, 800, "Kataru", NULL, NULL);
     gameStateHandler = new GameStateHandler();
+    userStatistics = new UserStatistics();
 
     if (!window)
     {
@@ -56,7 +58,17 @@ void Kataru::attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiCompon
     if (guiComponent != nullptr)
         obj->addGuiComponent(guiComponent);
 
-    guiObjects.push_back(obj);
+    menuGuiObjects.push_back(obj);
+}
+
+void Kataru::attachGameOverGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
+{
+    GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
+
+    if (guiComponent != nullptr)
+        obj->addGuiComponent(guiComponent);
+
+    gameOverGuiObjects.push_back(obj);
 }
 
 void Kataru::initImGui()
@@ -114,6 +126,7 @@ void Kataru::init()
 
     attachGameObject(nullptr, new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
+    attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
 
 void Kataru::update()
@@ -129,8 +142,8 @@ void Kataru::update()
     case GameStateHandler::GameState::Menu:
         setMouseCursorVisibilityMenu();
 
-        for (size_t i = 0; i < guiObjects.size(); i++)
-            guiObjects[i]->update(deltaTime);
+        for (size_t i = 0; i < menuGuiObjects.size(); i++)
+            menuGuiObjects[i]->update(deltaTime);
 
         break;
     case GameStateHandler::GameState::Game:
@@ -138,6 +151,11 @@ void Kataru::update()
         this->spawner->update(deltaTime);
         for (size_t i = 0; i < gameObjects.size(); i++)
             gameObjects[i]->update(deltaTime);
+
+        break;
+    case GameStateHandler::GameState::GameOver:
+        for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
+            gameOverGuiObjects[i]->update(deltaTime);
 
         break;
     case GameStateHandler::GameState::Quit:
@@ -162,8 +180,12 @@ void Kataru::draw()
     {
         case GameStateHandler::GameState::Menu:
             this->spawner->setOn(false);
-            for (size_t i = 0; i < guiObjects.size(); i++)
-                guiObjects[i]->draw();
+            for (size_t i = 0; i < menuGuiObjects.size(); i++)
+                menuGuiObjects[i]->draw();
+
+            break;
+        case GameStateHandler::GameState::Calibration:
+            // TODO: Calibration phase
 
             break;
         case GameStateHandler::GameState::Game:
@@ -171,6 +193,11 @@ void Kataru::draw()
             this->spawner->draw();
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();
+
+            break;
+        case GameStateHandler::GameState::GameOver:
+            for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
+                gameOverGuiObjects[i]->draw();
 
             break;
     }

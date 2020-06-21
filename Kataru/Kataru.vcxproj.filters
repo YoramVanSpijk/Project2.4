@@ -104,9 +104,6 @@
     <ClInclude Include="Component.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="DrawComponent.h">
       <Filter>Components</Filter>
     </ClInclude>

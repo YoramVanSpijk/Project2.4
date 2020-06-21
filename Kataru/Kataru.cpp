@@ -130,10 +130,10 @@ void Kataru::init()
     glEnable(GL_DEPTH_TEST);
 
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-        {
-            if (key == GLFW_KEY_ESCAPE)
-                glfwSetWindowShouldClose(window, true);
-        });
+    {
+        if (key == GLFW_KEY_ESCAPE)
+            glfwSetWindowShouldClose(window, true);
+    });
 
     cursorChangeMenu = true;
     cursorChangeGame = true;
@@ -153,41 +153,42 @@ void Kataru::update()
     double deltaTime = currentFrameTime - lastFrameTime;
     lastFrameTime = currentFrameTime;
 
+    for (size_t i = 0; i < gameObjects.size(); i++)
+        gameObjects[i]->update(deltaTime);
+
     gameStateHandler->GetGamestate(&currentGameState);
 
     switch (currentGameState)
     {
-    case GameStateHandler::GameState::Menu:
-        setMouseCursorVisibilityMenu();
+        case GameStateHandler::GameState::Menu:
+            setMouseCursorVisibilityMenu();
 
-        for (size_t i = 0; i < menuGuiObjects.size(); i++)
-            menuGuiObjects[i]->update(deltaTime);
+            for (size_t i = 0; i < menuGuiObjects.size(); i++)
+                menuGuiObjects[i]->update(deltaTime);
 
-        break;
-    case GameStateHandler::GameState::Calibration:
-        setMouseCursorVisibilityMenu();
-        for (size_t i = 0; i < gameObjects.size(); i++)
-            gameObjects[i]->update(deltaTime);
+            break;
+        case GameStateHandler::GameState::Calibration:
+            setMouseCursorVisibilityMenu();
+            for (size_t i = 0; i < gameObjects.size(); i++)
+                gameObjects[i]->update(deltaTime);
 
-        for (size_t i = 0; i < calibrationGuiObjects.size(); i++)
-            calibrationGuiObjects[i]->update(deltaTime);
+            for (size_t i = 0; i < calibrationGuiObjects.size(); i++)
+                calibrationGuiObjects[i]->update(deltaTime);
 
-        break;
-    case GameStateHandler::GameState::Game:
-        setMouseCursorVisibilityGame();
-        this->spawner->update(deltaTime);
-        for (size_t i = 0; i < gameObjects.size(); i++)
-            gameObjects[i]->update(deltaTime);
+            break;
+        case GameStateHandler::GameState::Game:
+            setMouseCursorVisibilityGame();
+            this->spawner->update(deltaTime);
 
-        break;
-    case GameStateHandler::GameState::GameOver:
-        for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
-            gameOverGuiObjects[i]->update(deltaTime);
+            break;
+        case GameStateHandler::GameState::GameOver:
+            for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
+                gameOverGuiObjects[i]->update(deltaTime);
 
-        break;
-    case GameStateHandler::GameState::Quit:
-        glfwSetWindowShouldClose(window, true);
-        break;
+            break;
+        case GameStateHandler::GameState::Quit:
+            glfwSetWindowShouldClose(window, true);
+            break;
     }
 }
 
@@ -203,6 +204,8 @@ void Kataru::draw()
     glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
     tigl::shader->setProjectionMatrix(projection);
 
+    colorDetector->loop(visionCam->getFrame(), showCalibrationROI);
+
     switch (currentGameState)
     {
         case GameStateHandler::GameState::Menu:
@@ -210,11 +213,12 @@ void Kataru::draw()
             for (size_t i = 0; i < menuGuiObjects.size(); i++)
                 menuGuiObjects[i]->draw();
 
+            showCalibrationROI = false;
             break;
         case GameStateHandler::GameState::Calibration:
             this->spawner->setOn(false);
 
-            colorDetector->loop(visionCam->getFrame(), true);
+            showCalibrationROI = true;
 
             for (size_t i = 0; i < calibrationGuiObjects.size(); i++)
                 calibrationGuiObjects[i]->draw();
@@ -227,16 +231,13 @@ void Kataru::draw()
             for (size_t i = 0; i < this->spawner->getObjects().size(); i++)
                 collisionHandler->check(colorDetector->getCurrentPoint(), this->spawner->getObjects()[i]->getPosition());
 
-            for (size_t i = 0; i < gameObjects.size(); i++)
-                gameObjects[i]->draw();
-
-            colorDetector->loop(visionCam->getFrame(), false);
-
+            showCalibrationROI = false;
             break;
         case GameStateHandler::GameState::GameOver:
             for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
                 gameOverGuiObjects[i]->draw();
 
+            showCalibrationROI = false;
             break;
     }
 }

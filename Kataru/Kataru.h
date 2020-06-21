@@ -60,6 +60,8 @@ private:
 	bool cursorChangeMenu;
 	bool cursorChangeGame;
 
+	bool showCalibrationROI = false;
+
 	const char* glsl_version = "#version 130";
 };
 

@@ -14,7 +14,7 @@ void MenuGuiComponent::draw(GLFWwindow* window)
     glfwGetFramebufferSize(window, &windowSizeHeight, &windowSizeWidth);
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowSize(ImVec2(windowSizeHeight, windowSizeWidth));
-    //ImGui::SetNextWindowBgAlpha(0.0f);
+    ImGui::SetNextWindowBgAlpha(0.2f);
     ImGui::Begin("Kataru", menuActive, ImGuiWindowFlags_NoTitleBar);
 
     ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 2) - (buttonSizeY)));

@@ -18,6 +18,7 @@ void CalibrateGuiComponent::draw(GLFWwindow* window)
     ImGuiWindowFlags windowFlags = 0;
     windowFlags |= ImGuiWindowFlags_NoBackground;
     windowFlags |= ImGuiWindowFlags_NoTitleBar;
+    windowFlags |= ImGuiWindowFlags_NoResize;
 
     ImGui::SetNextWindowBgAlpha(0.0f);
     ImGui::Begin("Calibration", menuActive, windowFlags);

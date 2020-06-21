@@ -194,6 +194,7 @@
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="ObjSpawner.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image2.h" />
     <ClInclude Include="stb_image_resize.h" />
     <ClInclude Include="stb_image_write.h" />
     <ClInclude Include="stb_truetype.h" />

@@ -18,6 +18,9 @@
 #include "CollisionHandler.h"
 #include "ColorDetector.h"
 #include "TextWriter.h"
+#include "ObjModel.h"
+#include "GameOverGuiComponent.h"
+#include "CalibrateGuiComponent.h"
 
 class Kataru
 {

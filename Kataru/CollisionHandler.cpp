@@ -1,12 +1,4 @@
 #include "CollisionHandler.h"
-#include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/gtc/matrix_transform.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include "tigl.h"
 
 CollisionHandler::CollisionHandler()
 {

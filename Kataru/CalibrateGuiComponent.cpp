@@ -1,13 +1,17 @@
 #include "CalibrateGuiComponent.h"
 
-CalibrateGuiComponent::CalibrateGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics)
+CalibrateGuiComponent::CalibrateGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics, bool* colorDetected)
 {
     this->gameStateHandler = gameStateHandler;
     this->userStatistics = userStatistics;
+    this->colorDetected = colorDetected;
 }
 
 CalibrateGuiComponent::~CalibrateGuiComponent()
 {
+    delete this->gameStateHandler;
+    delete this->userStatistics;
+    delete this->colorDetected;
 }
 
 void CalibrateGuiComponent::draw(GLFWwindow* window)
@@ -39,11 +43,14 @@ void CalibrateGuiComponent::draw(GLFWwindow* window)
             userStatistics->SetUserName(nameBuffer);
     }
 
-    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 8) * 6));
-    if (ImGui::Button("Continue", ImVec2(buttonSizeX, buttonSizeY)))
+    if (*colorDetected)
     {
-        if (gameStateHandler != nullptr)
-            gameStateHandler->SetGamestate(GameStateHandler::GameState::GameOver);
+        ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 8) * 6));
+        if (ImGui::Button("Continue", ImVec2(buttonSizeX, buttonSizeY)))
+        {
+            if (gameStateHandler != nullptr)
+                gameStateHandler->SetGamestate(GameStateHandler::GameState::Game);
+        }
     }
     ImGui::End();
 }

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "DrawComponent.h"
 #include <GL/glew.h>
+#include "DrawComponent.h"
 #include <glm/glm.hpp>
 
 #include <string>

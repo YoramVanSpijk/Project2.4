@@ -1,6 +1,6 @@
 #pragma once
-#include "DrawComponent.h"
 #include <GL/glew.h>
+#include "DrawComponent.h"
 #include <GLFW/glfw3.h>
 #include <opencv2/opencv.hpp>
 

@@ -1,10 +1,9 @@
 #include "ColorDetector.h"
-#include "tigl.h"
-#include <glm\ext\matrix_transform.hpp>
 
-ColorDetector::ColorDetector(GLFWwindow* window)
+ColorDetector::ColorDetector(GLFWwindow* window, GameStateHandler* gameStateHandler)
 {
 	this->window = window;
+	this->gameStateHandler = gameStateHandler;
 	this->currentPoint = cv::Point2f(0, 0);
 
     glGenTextures(1, &camTexId);
@@ -20,6 +19,9 @@ ColorDetector::ColorDetector(GLFWwindow* window)
     this->params.filterByArea = true;
     this->params.minArea = minAreaBlob;
     this->params.maxArea = maxAreaBlob;
+
+	this->colorDetected = (bool*)malloc(sizeof(bool));
+	*(this->colorDetected) = false;
 
     cv::namedWindow(MASK_TAG, CV_WINDOW_NORMAL);
 }
@@ -38,7 +40,10 @@ void ColorDetector::loop(cv::Mat frame, bool showROI)
 	tigl::shader->enableColor(false);
 	tigl::shader->enableTexture(true);
 
-	if (showROI) {
+	GameStateHandler::GameState currentGameState;
+	gameStateHandler->GetGamestate(&currentGameState);
+
+	if (showROI && currentGameState == GameStateHandler::GameState::Calibration) {
 		drawROI(frame);
 
 		if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
@@ -48,7 +53,7 @@ void ColorDetector::loop(cv::Mat frame, bool showROI)
 			// Create window for controls DEBUG
 			// createSettingsWindow();
 
-			this->colorDetected = true;
+			*(this->colorDetected) = true;
 		}
 	}
 

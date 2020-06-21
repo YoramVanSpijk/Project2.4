@@ -1,8 +1,4 @@
 #include "Kataru.h"
-#include "ObjModel.h"
-#include "GameOverGuiComponent.h"
-#include "CalibrateGuiComponent.h"
-#include "TextWriter.h"
 
 Kataru::Kataru()
 {
@@ -21,7 +17,7 @@ Kataru::Kataru()
     }
     glfwMakeContextCurrent(window);
 
-    colorDetector = new ColorDetector(window);
+    colorDetector = new ColorDetector(window, gameStateHandler);
 
     tigl::init();
     initImGui();
@@ -169,7 +165,7 @@ void Kataru::init()
     this->gameObjects.push_back(new GameObject(new ObjModel("models/steve/Steve.obj", glm::vec4(0xff / 255.0f, 0xe1 / 255.0f, 0x35 / 255.0f, 1)), glm::vec3(0.08f, -0.05f, -0.1f), glm::vec3(0, glm::half_pi<float>()/2, 0), glm::vec3(0.01f, 0.01f, 0.01f)));
     attachGameObject(nullptr, visionCam = new VisionCamera(), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
-    attachCalibrationGuiObject(nullptr, window, new CalibrateGuiComponent(gameStateHandler, userStatistics));
+    attachCalibrationGuiObject(nullptr, window, new CalibrateGuiComponent(gameStateHandler, userStatistics, colorDetector->colorDetected));
     attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
 
@@ -205,8 +201,6 @@ void Kataru::update()
         case GameStateHandler::GameState::Game:
             setMouseCursorVisibilityGame();
             this->spawner->update(deltaTime);
-
-            int score = userStatistics->GetUserScore();
 
             tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
 

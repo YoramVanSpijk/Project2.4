@@ -1,5 +1,13 @@
 #pragma once
 #include "VisionCamera.h"
+#include <GL/glew.h>
+#include <iostream>
+#include <GLFW/glfw3.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include "tigl.h"
 
 class CollisionHandler
 {

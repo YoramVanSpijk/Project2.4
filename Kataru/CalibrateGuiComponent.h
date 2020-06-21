@@ -11,7 +11,7 @@
 class CalibrateGuiComponent : public GuiComponent
 {
 public:
-	CalibrateGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics);
+	CalibrateGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics, bool* colorDetected);
 	~CalibrateGuiComponent();
 
 	void draw(GLFWwindow* window) override;
@@ -22,6 +22,7 @@ public:
 private:
 	GameStateHandler* gameStateHandler;
 	UserStatistics* userStatistics;
+	bool* colorDetected;
 
 	bool* menuActive;
 	char nameBuffer[255] = {};

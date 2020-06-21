@@ -16,6 +16,7 @@
 #include "ObjSpawner.h"
 #include "UserStatistics.h"
 #include "CollisionHandler.h"
+#include "ColorDetector.h"
 
 class Kataru
 {
@@ -45,6 +46,7 @@ private:
 	GameStateHandler::GameState currentGameState;
 
 	UserStatistics* userStatistics;
+	ColorDetector* colorDetector;
 	VisionCamera* visionCam;
 
 	std::vector<GuiObject*> menuGuiObjects;

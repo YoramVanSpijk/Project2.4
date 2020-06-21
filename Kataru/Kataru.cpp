@@ -19,6 +19,8 @@ Kataru::Kataru()
     }
     glfwMakeContextCurrent(window);
 
+    colorDetector = new ColorDetector(window);
+
     tigl::init();
     initImGui();
     init();
@@ -41,6 +43,7 @@ Kataru::~Kataru()
     delete gameStateHandler;
     delete userStatistics;
     delete collisionHandler;
+    delete colorDetector;
 }
 
 void Kataru::attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos)
@@ -127,7 +130,7 @@ void Kataru::init()
 
     this->spawner = std::unique_ptr<ObjSpawner>(new ObjSpawner());
 
-    attachGameObject(nullptr, visionCam = new VisionCamera(window), glm::vec3(0.0f, 0.0f, 0.0f));
+    attachGameObject(nullptr, visionCam = new VisionCamera(), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
     attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
@@ -196,10 +199,12 @@ void Kataru::draw()
             this->spawner->draw();
 
             for (size_t i = 0; i < this->spawner->getObjects().size(); i++)
-                collisionHandler->check(visionCam->getCurrentPoint(), this->spawner->getObjects()[i]->getPosition());
+                collisionHandler->check(colorDetector->getCurrentPoint(), this->spawner->getObjects()[i]->getPosition());
 
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();
+
+            colorDetector->loop(visionCam->getFrame());
 
             break;
         case GameStateHandler::GameState::GameOver:

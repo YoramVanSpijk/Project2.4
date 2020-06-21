@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CollisionHandler.cpp" />
+    <ClCompile Include="ColorDetector.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -182,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionHandler.h" />
+    <ClInclude Include="ColorDetector.h" />
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />

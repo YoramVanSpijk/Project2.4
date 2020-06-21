@@ -184,6 +184,10 @@ void Kataru::update()
             setMouseCursorVisibilityGame();
             this->spawner->update(deltaTime);
 
+            int score = userStatistics->GetUserScore();
+
+            tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
+
             for (size_t i = 0; i < this->gameObjects.size(); i++)
                 this->gameObjects[i]->update(deltaTime);
 
@@ -210,7 +214,6 @@ void Kataru::draw()
 
     glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
     tigl::shader->setProjectionMatrix(projection);
-    //tw->writeText({ 10, 10, 10 }, "Test");
 
     colorDetector->loop(visionCam->getFrame(), showCalibrationROI);
 

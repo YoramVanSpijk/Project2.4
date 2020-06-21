@@ -39,6 +39,9 @@
     <ClCompile Include="FpsCam.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="TextWriter.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="stb_image_write.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextWriter.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

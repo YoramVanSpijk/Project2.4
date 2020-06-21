@@ -41,13 +41,17 @@ void TextWriter::writeText(glm::vec3 loc, std::string text) {
 
     stbtt_aligned_quad q;
     tigl::begin(GL_QUADS);
+
+    
+
     for (int i = 0; i < text.size(); i++) {
         if (text[i] >= 32 && text[i] < 128) {
+            stbi_set_flip_vertically_on_load(true);
             stbtt_GetBakedQuad(cdata, 512, 512, text[i] - 32, &x, &y, &q, 1);
-            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x0, q.y0, 0), glm::vec2(q.s0, q.t0)));
-            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x1, q.y0, 0), glm::vec2(q.s1, q.t0)));
-            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x1, q.y1, 0), glm::vec2(q.s1, q.t1)));
-            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x0, q.y1, 0), glm::vec2(q.s0, q.t1)));
+            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x0, -q.y0, z), glm::vec2(q.s0, q.t0)));
+            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x1, -q.y0, z), glm::vec2(q.s1, q.t0)));
+            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x1, -q.y1, z), glm::vec2(q.s1, q.t1)));
+            tigl::addVertex(tigl::Vertex::PT(glm::vec3(q.x0, -q.y1, z), glm::vec2(q.s0, q.t1)));
         }
     }
     tigl::end();
@@ -57,7 +61,7 @@ void TextWriter::initWriter() {
     unsigned char* ttf_buffer = new unsigned char[1 << 20];
     unsigned char* temp_bitmap = new unsigned char[512 * 512];
     fread(ttf_buffer, 1, 1 << 20, fopen("c:/windows/fonts/times.ttf", "rb"));
-    stbtt_BakeFontBitmap(ttf_buffer, 0, 32.0, temp_bitmap, 512, 512, 32, 96, cdata);
+    stbtt_BakeFontBitmap(ttf_buffer, 0, 64.0, temp_bitmap, 512, 512, 32, 96, cdata);
     glGenTextures(1, &texId);
     glBindTexture(GL_TEXTURE_2D, texId);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, 512, 512, 0, GL_ALPHA, GL_UNSIGNED_BYTE, temp_bitmap);

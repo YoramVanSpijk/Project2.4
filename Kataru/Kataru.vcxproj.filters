@@ -90,6 +90,12 @@
     <ClCompile Include="Kataru.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ColorDetector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CalibrateGuiComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -169,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="Kataru.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorDetector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CalibrateGuiComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -156,7 +156,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CalibrateGuiComponent.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
+    <ClCompile Include="ColorDetector.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -181,7 +183,9 @@
     <ClCompile Include="VisionCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CalibrateGuiComponent.h" />
     <ClInclude Include="CollisionHandler.h" />
+    <ClInclude Include="ColorDetector.h" />
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />

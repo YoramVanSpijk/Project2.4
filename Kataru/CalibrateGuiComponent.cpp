@@ -1,8 +1,9 @@
 #include "CalibrateGuiComponent.h"
 
-CalibrateGuiComponent::CalibrateGuiComponent(GameStateHandler* gameStateHandler)
+CalibrateGuiComponent::CalibrateGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics)
 {
     this->gameStateHandler = gameStateHandler;
+    this->userStatistics = userStatistics;
 }
 
 CalibrateGuiComponent::~CalibrateGuiComponent()
@@ -22,11 +23,27 @@ void CalibrateGuiComponent::draw(GLFWwindow* window)
 
     ImGui::SetNextWindowBgAlpha(0.0f);
     ImGui::Begin("Calibration", menuActive, windowFlags);
+
+    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 8) * 2));
+    ImGui::Text("Press 'TAB' to calibrate");
+
+    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 8) * 6 - (buttonSizeY / 1.4)));
+    ImGui::Text("Enter a catchy name:");
+
+    ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 8) * 6 - (buttonSizeY / 2)));
+    ImGui::SetNextItemWidth(buttonSizeX);
+
+    if (ImGui::InputText(userStatistics->GetUserName(), nameBuffer, sizeof(char[255]), ImGuiInputTextFlags_AutoSelectAll | ImGuiInputTextFlags_EnterReturnsTrue))
+    {
+        if (strlen(nameBuffer) > 0)
+            userStatistics->SetUserName(nameBuffer);
+    }
+
     ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 8) * 6));
     if (ImGui::Button("Continue", ImVec2(buttonSizeX, buttonSizeY)))
     {
         if (gameStateHandler != nullptr)
-            gameStateHandler->SetGamestate(GameStateHandler::GameState::Game);
+            gameStateHandler->SetGamestate(GameStateHandler::GameState::GameOver);
     }
     ImGui::End();
 }

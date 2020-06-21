@@ -1,14 +1,14 @@
 #include "UserStatistics.h"
 #include <stdio.h>
 #include <corecrt_malloc.h>
+#include <string.h>
 
 UserStatistics::UserStatistics()
 {
-	this->userName = (const char**)malloc(sizeof(char[255]));
 	this->userScore = (int*)malloc(sizeof(int));
 
 	SetUserScore(0);
-	SetUserName("Player 1");
+	SetUserName((char*)"Player 1");
 }
 
 UserStatistics::~UserStatistics()
@@ -20,9 +20,9 @@ void UserStatistics::SetUserScore(int score)
 	*(this->userScore) = score;
 }
 
-void UserStatistics::SetUserName(const char* name)
+void UserStatistics::SetUserName(char* name)
 {
-	*(this->userName) = name;
+	strcpy(this->userName, name);
 }
 
 int UserStatistics::GetUserScore()
@@ -32,5 +32,5 @@ int UserStatistics::GetUserScore()
 
 const char* UserStatistics::GetUserName()
 {
-	return *(this->userName);
+	return this->userName;
 }

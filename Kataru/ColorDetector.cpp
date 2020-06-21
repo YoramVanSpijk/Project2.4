@@ -41,8 +41,8 @@ void ColorDetector::loop(cv::Mat frame, bool showROI)
 	if (showROI) {
 		drawROI(frame);
 
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-			std::cout << "S KEY PRESSED > Color detection running...\n";
+		if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
+			std::cout << "TAB KEY PRESSED > Color detection running...\n";
 			calculateTresholds();
 
 			// Create window for controls DEBUG

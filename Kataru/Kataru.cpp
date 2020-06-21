@@ -131,8 +131,30 @@ void Kataru::init()
 
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
     {
+        ImGuiIO& io = ImGui::GetIO();
+
         if (key == GLFW_KEY_ESCAPE)
             glfwSetWindowShouldClose(window, true);
+
+        if (key == GLFW_KEY_ENTER && action == GLFW_PRESS)
+            io.KeysDown[io.KeyMap[ImGuiKey_Enter]] = true;
+        else
+            io.KeysDown[io.KeyMap[ImGuiKey_Enter]] = false;
+
+        if (key == GLFW_KEY_BACKSPACE && action == GLFW_PRESS)
+            io.KeysDown[io.KeyMap[ImGuiKey_Backspace]] = true;
+        else
+            io.KeysDown[io.KeyMap[ImGuiKey_Backspace]] = false;
+
+        if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+            io.KeysDown[io.KeyMap[ImGuiKey_LeftArrow]] = true;
+        else
+            io.KeysDown[io.KeyMap[ImGuiKey_LeftArrow]] = false;
+
+        if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+            io.KeysDown[io.KeyMap[ImGuiKey_RightArrow]] = true;
+        else
+            io.KeysDown[io.KeyMap[ImGuiKey_RightArrow]] = false;
     });
 
     cursorChangeMenu = true;
@@ -143,7 +165,7 @@ void Kataru::init()
 
     attachGameObject(nullptr, visionCam = new VisionCamera(), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
-    attachCalibrationGuiObject(nullptr, window, new CalibrateGuiComponent(gameStateHandler));
+    attachCalibrationGuiObject(nullptr, window, new CalibrateGuiComponent(gameStateHandler, userStatistics));
     attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
 

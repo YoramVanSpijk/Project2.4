@@ -6,13 +6,13 @@ public:
 	~UserStatistics();
 
 	void SetUserScore(int score);
-	void SetUserName(const char* name);
+	void SetUserName(char name[255]);
 
 	int GetUserScore();
 	const char* GetUserName();
 
 private:
 	int* userScore = 0;
-	const char** userName;
+	char userName[255] = {};
 };
 

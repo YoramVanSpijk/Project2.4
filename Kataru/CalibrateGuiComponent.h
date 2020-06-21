@@ -6,11 +6,12 @@
 #include "imgui_impl_opengl3.h"
 
 #include "GameStateHandler.h"
+#include "UserStatistics.h"
 
 class CalibrateGuiComponent : public GuiComponent
 {
 public:
-	CalibrateGuiComponent(GameStateHandler* gameStateHandler);
+	CalibrateGuiComponent(GameStateHandler* gameStateHandler, UserStatistics* userStatistics);
 	~CalibrateGuiComponent();
 
 	void draw(GLFWwindow* window) override;
@@ -20,7 +21,10 @@ public:
 
 private:
 	GameStateHandler* gameStateHandler;
+	UserStatistics* userStatistics;
+
 	bool* menuActive;
+	char nameBuffer[255] = {};
 
 	const int buttonSizeX = 200;
 	const int buttonSizeY = 75;

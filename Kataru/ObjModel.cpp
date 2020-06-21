@@ -81,7 +81,8 @@ static inline std::string cleanLine(std::string line)
 /**
 * Loads an object model
 */
-ObjModel::ObjModel(const std::string &fileName)
+ObjModel::ObjModel(const std::string &fileName, glm::vec4 color)
+	: color(color)
 {
 	std::cout << "Loading " << fileName << std::endl;
 	std::string dirName = fileName;
@@ -188,15 +189,18 @@ ObjModel::~ObjModel(void)
 
 void ObjModel::draw()
 {
+	tigl::shader->enableColor(true);
+	tigl::shader->enableTexture(false);
+
 	for (auto group : this->groups)
 	{
-		materials[group->materialIndex]->texture->bind();
+		//materials[group->materialIndex]->texture->bind();
 		tigl::begin(GL_TRIANGLES);
 		for (auto& face : group->faces)
 		{
 			for (auto& vertex : face.vertices)
 			{
-				tigl::addVertex(tigl::Vertex::PT(this->vertices[vertex.position], this->texcoords[vertex.texcoord]));
+				tigl::addVertex(tigl::Vertex::PC(this->vertices[vertex.position], this->color));// this->texcoords[vertex.texcoord]));
 			}
 		}
 		tigl::end();

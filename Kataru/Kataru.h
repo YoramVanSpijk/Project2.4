@@ -17,6 +17,7 @@
 #include "UserStatistics.h"
 #include "CollisionHandler.h"
 #include "ColorDetector.h"
+#include "TextWriter.h"
 
 class Kataru
 {
@@ -41,6 +42,7 @@ public:
 private:
 	GLFWwindow* window;
 	double lastFrameTime;
+	TextWriter* tw;
 
 	CollisionHandler* collisionHandler;
 	GameStateHandler* gameStateHandler;

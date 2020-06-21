@@ -2,6 +2,7 @@
 #include "ObjModel.h"
 #include "GameOverGuiComponent.h"
 #include "CalibrateGuiComponent.h"
+#include "TextWriter.h"
 
 Kataru::Kataru()
 {
@@ -139,6 +140,7 @@ void Kataru::init()
     cursorChangeGame = true;
     lastFrameTime = 0;
 
+    this->tw = TextWriter::getInstance();
     this->spawner = std::unique_ptr<ObjSpawner>(new ObjSpawner());
 
     attachGameObject(nullptr, visionCam = new VisionCamera(), glm::vec3(0.0f, 0.0f, 0.0f));
@@ -203,6 +205,7 @@ void Kataru::draw()
 
     glm::mat4 projection = glm::perspective(glm::radians(55.0f), width / (float)height, 0.1f, 100.0f);
     tigl::shader->setProjectionMatrix(projection);
+    //tw->writeText({ 10, 10, 10 }, "Test");
 
     colorDetector->loop(visionCam->getFrame(), showCalibrationROI);
 

@@ -178,6 +178,7 @@
     <ClCompile Include="ObjSpawner.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="MenuGuiComponent.cpp" />
+    <ClCompile Include="TextWriter.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="UserStatistics.cpp" />
     <ClCompile Include="VisionCamera.cpp" />
@@ -193,6 +194,9 @@
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="ObjSpawner.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image_resize.h" />
+    <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="stb_truetype.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="GameOverGuiComponent.h" />
     <ClInclude Include="GameStateHandler.h" />
@@ -207,6 +211,7 @@
     <ClInclude Include="lib\imgui\include\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\include\imstb_truetype.h" />
     <ClInclude Include="MenuGuiComponent.h" />
+    <ClInclude Include="TextWriter.h" />
     <ClInclude Include="tigl.h" />
     <ClInclude Include="UserStatistics.h" />
     <ClInclude Include="VisionCamera.h" />

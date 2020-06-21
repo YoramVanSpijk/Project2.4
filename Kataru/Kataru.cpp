@@ -2,6 +2,7 @@
 #include "ObjModel.h"
 #include "GameOverGuiComponent.h"
 #include "CalibrateGuiComponent.h"
+#include "TextWriter.h"
 
 Kataru::Kataru()
 {
@@ -36,6 +37,7 @@ Kataru::Kataru()
         glfwPollEvents();
     }
 
+    this->spawner->setOn(false);
     glfwTerminate();
 }
 
@@ -161,8 +163,10 @@ void Kataru::init()
     cursorChangeGame = true;
     lastFrameTime = 0;
 
+    this->tw = TextWriter::getInstance();
     this->spawner = std::unique_ptr<ObjSpawner>(new ObjSpawner());
 
+    this->gameObjects.push_back(new GameObject(new ObjModel("models/steve/Steve.obj", glm::vec4(0xff / 255.0f, 0xe1 / 255.0f, 0x35 / 255.0f, 1)), glm::vec3(0.08f, -0.05f, -0.1f), glm::vec3(0, glm::half_pi<float>()/2, 0), glm::vec3(0.01f, 0.01f, 0.01f)));
     attachGameObject(nullptr, visionCam = new VisionCamera(), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
     attachCalibrationGuiObject(nullptr, window, new CalibrateGuiComponent(gameStateHandler, userStatistics));
@@ -201,6 +205,13 @@ void Kataru::update()
         case GameStateHandler::GameState::Game:
             setMouseCursorVisibilityGame();
             this->spawner->update(deltaTime);
+
+            int score = userStatistics->GetUserScore();
+
+            tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
+
+            for (size_t i = 0; i < this->gameObjects.size(); i++)
+                this->gameObjects[i]->update(deltaTime);
 
             break;
         case GameStateHandler::GameState::GameOver:
@@ -252,6 +263,9 @@ void Kataru::draw()
 
             for (size_t i = 0; i < this->spawner->getObjects().size(); i++)
                 collisionHandler->check(colorDetector->getCurrentPoint(), this->spawner->getObjects()[i]->getPosition());
+
+            for (size_t i = 0; i < this->gameObjects.size(); i++)
+                this->gameObjects[i]->draw();
 
             showCalibrationROI = false;
             break;

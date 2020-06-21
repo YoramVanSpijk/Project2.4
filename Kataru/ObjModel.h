@@ -50,10 +50,11 @@ private:
 	std::vector<glm::vec2>	texcoords;
 	std::vector<ObjGroup*> groups;
 	std::vector<MaterialInfo*> materials;
+	glm::vec4 color;
 
 	void loadMaterialFile(const std::string &fileName, const std::string &dirName);
 public:
-	ObjModel(const std::string &filename);
+	ObjModel(const std::string &filename, glm::vec4 color);
 	~ObjModel(void);
 
 	void draw();

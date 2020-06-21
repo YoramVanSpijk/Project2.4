@@ -42,10 +42,13 @@ void ObjSpawner::throwObject(int i)
     float floor = -0.1f;
     float depth = -0.1f;
 
+    glm::vec4 banana = glm::vec4(0xff / 255.0f, 0xe1 / 255.0f, 0x35 / 255.0f, 1);
+    glm::vec4 apple = glm::vec4(0xff / 255.0f, 0x08 / 255.0f, 0x00 / 255.0f, 1);
+
     if (i == 0)
-        object = new GameObject(new ObjModel("models/car/honda_jazz.obj"), glm::vec3(ObjSpawner::fRand(-0.01f, 0.01f), floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.0001f, 0.0001f, 0.0001f));
+        object = new GameObject(new ObjModel("models/car/honda_jazz.obj", apple), glm::vec3(ObjSpawner::fRand(-0.01f, 0.01f), floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.0001f, 0.0001f, 0.0001f));
     else if (i == 1)
-        object = new GameObject(new ObjModel("models/steve/Steve.obj"), glm::vec3(ObjSpawner::fRand(-0.02f, 0.02f), floor, depth), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.001f, 0.001f, 0.001f));
+        object = new GameObject(new ObjModel("models/steve/Steve.obj", banana), glm::vec3(ObjSpawner::fRand(-0.02f, 0.02f), floor, depth), glm::vec3(0, glm::half_pi<float>(), 0), glm::vec3(0.001f, 0.001f, 0.001f));
     else if (i == 2)
         //object = new GameObject(new ObjModel("models/cube/cube-textures.obj"), glm::vec3(0, floor, depth), glm::vec3(0, 0, 0), glm::vec3(0.01f, 0.01f, 0.01f));
    

@@ -9,7 +9,7 @@
 #include "tigl.h"
 
 ObjSpawner::ObjSpawner()
-    : difficulty(Difficulty::KATARUNEER), on(true)
+    : difficulty(Difficulty::KATARUNEER), on(true), count(0)
 {
     this->thread = std::thread(&ObjSpawner::spawn, this);
     srand(time(NULL));
@@ -69,6 +69,7 @@ void ObjSpawner::throwObject(int i)
 
     this->removeGameObject(object);
     delete object;
+    count++;
 }
 
 void ObjSpawner::setDifficulty(Difficulty difficulty)
@@ -116,6 +117,13 @@ std::vector<GameObject*> ObjSpawner::getObjects()
 {
     return this->gameObjects;
 }
+
+int ObjSpawner::getCount()
+{
+    return this->count;
+}
+
+
 
 void ObjSpawner::draw()
 {

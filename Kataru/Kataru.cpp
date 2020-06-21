@@ -117,6 +117,15 @@ void Kataru::setMouseCursorVisibilityGame()
     }
 }
 
+void Kataru::setMouseCursorVisibilityGameOver()
+{
+    if (cursorChangeGameOver)
+    {
+        setMouseCursorVisibility(GLFW_CROSSHAIR_CURSOR);
+        cursorChangeGameOver = false;
+    }
+}
+
 void Kataru::setMouseCursorVisibility(int value)
 {
     glfwSetInputMode(window, GLFW_CURSOR, value);
@@ -157,7 +166,8 @@ void Kataru::init()
     });
 
     cursorChangeMenu = true;
-    cursorChangeGame = true;
+    cursorChangeGame = true; 
+    cursorChangeGameOver = true;
     lastFrameTime = 0;
 
     this->tw = TextWriter::getInstance();
@@ -203,13 +213,21 @@ void Kataru::update()
             setMouseCursorVisibilityGame();
             this->spawner->update(deltaTime);
 
-            tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
+            userStatistics->SetUserScore(this->spawner->getCount());
+
+            if (this->spawner->getCount() % 3 == 0)
+            {
+                this->gameStateHandler->SetGamestate(GameStateHandler::GameState::GameOver);
+            }
+
+            //tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
 
             for (size_t i = 0; i < this->gameObjects.size(); i++)
                 this->gameObjects[i]->update(deltaTime);
 
             break;
         case GameStateHandler::GameState::GameOver:
+            this->setMouseCursorVisibilityGameOver();
             for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
                 gameOverGuiObjects[i]->update(deltaTime);
 
@@ -265,6 +283,7 @@ void Kataru::draw()
             showCalibrationROI = false;
             break;
         case GameStateHandler::GameState::GameOver:
+            this->spawner->setOn(false);
             for (size_t i = 0; i < gameOverGuiObjects.size(); i++)
                 gameOverGuiObjects[i]->draw();
 

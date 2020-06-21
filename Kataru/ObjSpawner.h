@@ -19,6 +19,7 @@ public:
 	void update(double deltaTime);
 	void draw();
 	std::vector<GameObject*> getObjects();
+	int getCount();
 
 private:
 	std::vector<GameObject*> gameObjects;
@@ -26,6 +27,7 @@ private:
 
 	Difficulty difficulty;
 	bool on;
+	int count;
 
 	static void spawn(ObjSpawner* spawner);
 	static double fRand(double fMin, double fMax);

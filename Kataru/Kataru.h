@@ -36,6 +36,7 @@ public:
 	void initImGui();
 	void setMouseCursorVisibilityMenu();
 	void setMouseCursorVisibilityGame();
+	void setMouseCursorVisibilityGameOver();
 	void setMouseCursorVisibility(int value);
 
 	void init();
@@ -64,6 +65,7 @@ private:
 
 	bool cursorChangeMenu;
 	bool cursorChangeGame;
+	bool cursorChangeGameOver;
 
 	bool showCalibrationROI = false;
 

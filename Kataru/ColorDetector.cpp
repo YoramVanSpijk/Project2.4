@@ -33,12 +33,24 @@ cv::Point2f ColorDetector::getCurrentPoint()
     return this->currentPoint;
 }
 
-void ColorDetector::loop(cv::Mat frame)
+void ColorDetector::loop(cv::Mat frame, bool showROI)
 {
 	tigl::shader->enableColor(false);
 	tigl::shader->enableTexture(true);
-	
-	drawROI(frame);
+
+	if (showROI) {
+		drawROI(frame);
+
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+			std::cout << "S KEY PRESSED > Color detection running...\n";
+			calculateTresholds();
+
+			// Create window for controls DEBUG
+			// createSettingsWindow();
+
+			this->colorDetected = true;
+		}
+	}
 
 	if (this->colorDetected) {
 		applyTransformations(frame);
@@ -58,15 +70,6 @@ void ColorDetector::loop(cv::Mat frame)
 		}
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		std::cout << "S KEY PRESSED > Color detection running...\n";
-		calculateTresholds();
-
-		// Create window for controls DEBUG
-		createSettingsWindow();
-
-		this->colorDetected = true;
-	}
 	bindTexture(frame);
 	drawTexPane();
 }

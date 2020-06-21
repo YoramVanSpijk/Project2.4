@@ -13,7 +13,7 @@ public:
 	~ColorDetector();
 
 	cv::Point2f getCurrentPoint();
-	void loop(cv::Mat frame);
+	void loop(cv::Mat frame, bool showROI);
 private:
 	//GLFW
 	GLFWwindow* window;

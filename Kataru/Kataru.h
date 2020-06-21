@@ -26,6 +26,7 @@ public:
 
 	void attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos = glm::vec3(0, 0, 0));
 	void attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent);
+	void attachCalibrationGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent);
 	void attachGameOverGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent);
 
 	void initImGui();
@@ -51,6 +52,7 @@ private:
 
 	std::vector<GuiObject*> menuGuiObjects;
 	std::vector<GuiObject*> gameOverGuiObjects;
+	std::vector<GuiObject*> calibrationGuiObjects;
 	std::vector<GameObject*> gameObjects;
 
 	std::unique_ptr<ObjSpawner> spawner;

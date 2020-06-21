@@ -21,7 +21,7 @@ void MenuGuiComponent::draw(GLFWwindow* window)
     if (ImGui::Button("Play", ImVec2(buttonSizeX, buttonSizeY)))
     {
         if (gameStateHandler != nullptr)
-            gameStateHandler->SetGamestate(GameStateHandler::GameState::Game);
+            gameStateHandler->SetGamestate(GameStateHandler::GameState::Calibration);
     }
 
     ImGui::SetCursorPos(ImVec2((windowSizeHeight / 2) - (buttonSizeX / 2), (windowSizeWidth / 2)));

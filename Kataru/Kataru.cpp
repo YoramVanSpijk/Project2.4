@@ -1,6 +1,7 @@
 #include "Kataru.h"
 #include "ObjModel.h"
 #include "GameOverGuiComponent.h"
+#include "CalibrateGuiComponent.h"
 
 Kataru::Kataru()
 {
@@ -65,6 +66,16 @@ void Kataru::attachGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiCompon
         obj->addGuiComponent(guiComponent);
 
     menuGuiObjects.push_back(obj);
+}
+
+void Kataru::attachCalibrationGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
+{
+    GuiObject* obj = guiObject == nullptr ? new GuiObject(window) : guiObject;
+
+    if (guiComponent != nullptr)
+        obj->addGuiComponent(guiComponent);
+
+    calibrationGuiObjects.push_back(obj);
 }
 
 void Kataru::attachGameOverGuiObject(GuiObject* guiObject, GLFWwindow* window, GuiComponent* guiComponent)
@@ -132,6 +143,7 @@ void Kataru::init()
 
     attachGameObject(nullptr, visionCam = new VisionCamera(), glm::vec3(0.0f, 0.0f, 0.0f));
     attachGuiObject(nullptr, window, new MenuGuiComponent(gameStateHandler));
+    attachCalibrationGuiObject(nullptr, window, new CalibrateGuiComponent(gameStateHandler));
     attachGameOverGuiObject(nullptr, window, new GameOverGuiComponent(gameStateHandler, userStatistics));
 }
 
@@ -150,6 +162,15 @@ void Kataru::update()
 
         for (size_t i = 0; i < menuGuiObjects.size(); i++)
             menuGuiObjects[i]->update(deltaTime);
+
+        break;
+    case GameStateHandler::GameState::Calibration:
+        setMouseCursorVisibilityMenu();
+        for (size_t i = 0; i < gameObjects.size(); i++)
+            gameObjects[i]->update(deltaTime);
+
+        for (size_t i = 0; i < calibrationGuiObjects.size(); i++)
+            calibrationGuiObjects[i]->update(deltaTime);
 
         break;
     case GameStateHandler::GameState::Game:
@@ -191,7 +212,12 @@ void Kataru::draw()
 
             break;
         case GameStateHandler::GameState::Calibration:
-            // TODO: Calibration phase
+            this->spawner->setOn(false);
+
+            colorDetector->loop(visionCam->getFrame(), true);
+
+            for (size_t i = 0; i < calibrationGuiObjects.size(); i++)
+                calibrationGuiObjects[i]->draw();
 
             break;
         case GameStateHandler::GameState::Game:
@@ -204,7 +230,7 @@ void Kataru::draw()
             for (size_t i = 0; i < gameObjects.size(); i++)
                 gameObjects[i]->draw();
 
-            colorDetector->loop(visionCam->getFrame());
+            colorDetector->loop(visionCam->getFrame(), false);
 
             break;
         case GameStateHandler::GameState::GameOver:

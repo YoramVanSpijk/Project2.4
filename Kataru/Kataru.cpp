@@ -206,9 +206,7 @@ void Kataru::update()
             setMouseCursorVisibilityGame();
             this->spawner->update(deltaTime);
 
-            int score = userStatistics->GetUserScore();
-
-            tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
+            //tw->writeText({0, 0, 0}, "Score: " + std::to_string(userStatistics->GetUserScore()));
 
             for (size_t i = 0; i < this->gameObjects.size(); i++)
                 this->gameObjects[i]->update(deltaTime);

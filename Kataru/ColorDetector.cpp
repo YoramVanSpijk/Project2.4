@@ -28,6 +28,7 @@ ColorDetector::ColorDetector(GLFWwindow* window, GameStateHandler* gameStateHand
 
 ColorDetector::~ColorDetector()
 {
+	delete this->colorDetected;
 }
 
 cv::Point2f ColorDetector::getCurrentPoint()

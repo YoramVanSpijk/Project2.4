@@ -13,6 +13,8 @@ UserStatistics::UserStatistics()
 
 UserStatistics::~UserStatistics()
 {
+	//delete this->userName;
+	//free(this->userName);
 }
 
 void UserStatistics::SetUserScore(int score)

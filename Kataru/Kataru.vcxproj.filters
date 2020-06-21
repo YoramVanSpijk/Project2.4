@@ -19,11 +19,44 @@
     <Filter Include="imGui">
       <UniqueIdentifier>{3133b909-8dcb-446a-9669-a33d7bbf711d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\STB">
+      <UniqueIdentifier>{08495236-33dd-48e6-bfa3-72a0eaec60f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{007904c3-be38-41ea-b7c7-a5dc3f9389a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TIGL">
+      <UniqueIdentifier>{3d070fd4-f8da-4e75-9348-819653c7aaa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Handlers">
+      <UniqueIdentifier>{faa9ab0f-12da-41f2-a653-e8ae3b0a76a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Spawners">
+      <UniqueIdentifier>{478bd8da-dce7-4993-9571-fb63aacbb797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Useless">
+      <UniqueIdentifier>{3da2eb19-fb7b-4b33-af6c-5c8a5c8d74d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{a0aa247b-68a1-4884-af74-4b9bb1cf9ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Handlers">
+      <UniqueIdentifier>{c14fadf5-6c4b-4d25-b490-8bbef61c98c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Useless">
+      <UniqueIdentifier>{0441c938-831b-49ff-bc12-d1b102e151d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TIGL">
+      <UniqueIdentifier>{c32f6e09-719d-44fa-aba5-ceb091cc8a25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Spawners">
+      <UniqueIdentifier>{c84def42-da2e-4307-a7c1-aa11bf4d2eef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enums">
+      <UniqueIdentifier>{ff80592f-d8b6-4a79-bc53-4aafa0384ce0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tigl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,44 +99,44 @@
     <ClCompile Include="GuiComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="GameStateHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameOverGuiComponent.cpp">
       <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="UserStatistics.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjModel.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjSpawner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Kataru.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorDetector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CalibrateGuiComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Kataru.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="tigl.cpp">
+      <Filter>Source Files\TIGL</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateHandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
     <ClCompile Include="TextWriter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSpawner.cpp">
+      <Filter>Source Files\Spawners</Filter>
+    </ClCompile>
+    <ClCompile Include="UserStatistics.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Useless</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorDetector.cpp">
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="tigl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -143,59 +176,59 @@
     <ClInclude Include="ObjModel.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjSpawner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Difficulty.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GuiComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GuiObject.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameStateHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameOverGuiComponent.h">
       <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="UserStatistics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Kataru.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorDetector.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CalibrateGuiComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="TextWriter.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files\STB</Filter>
     </ClInclude>
     <ClInclude Include="stb_image_resize.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\STB</Filter>
     </ClInclude>
     <ClInclude Include="stb_image_write.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\STB</Filter>
     </ClInclude>
     <ClInclude Include="stb_truetype.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\STB</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image2.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CollisionHandler.h">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateHandler.h">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Kataru.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Useless</Filter>
+    </ClInclude>
+    <ClInclude Include="tigl.h">
+      <Filter>Header Files\TIGL</Filter>
+    </ClInclude>
+    <ClInclude Include="UserStatistics.h">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorDetector.h">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="Difficulty.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSpawner.h">
+      <Filter>Header Files\Spawners</Filter>
+    </ClInclude>
+    <ClInclude Include="TextWriter.h">
+      <Filter>Header Files\Spawners</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

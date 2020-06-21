@@ -28,7 +28,9 @@ TextWriter* TextWriter::getInstance() {
 
 TextWriter::TextWriter() {}
 
-TextWriter::~TextWriter() {}
+TextWriter::~TextWriter() {
+    delete TextWriter::instance;
+}
 
 void TextWriter::writeText(glm::vec3 loc, std::string text) {
     float x = loc.x;

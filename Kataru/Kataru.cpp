@@ -43,6 +43,7 @@ Kataru::~Kataru()
     delete userStatistics;
     delete collisionHandler;
     delete colorDetector;
+    delete visionCam;
 }
 
 void Kataru::attachGameObject(GameObject* gameObject, Component* component, glm::vec3 pos)
